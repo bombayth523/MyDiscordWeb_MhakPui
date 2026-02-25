@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap');
+
+body {
+    background-color: rgb(69, 60, 103);
+    font-family: 'Kanit', sans-serif;
+    color: rgb(242, 247, 161);
+    justify-content: center;
+    padding-top: 30px;
+}
+.chatbot-body{
+    padding-top: 0px;
+}    
+hr {
+    background-color: rgb(109, 103, 228);
+}
+h1 {
+    text-align: center;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 500;
+}
+h2 {
+    font-family: 'Kanit', sans-serif;
+}
+h3 {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 400;
+}
+.headP {
+    text-align: center;
+    font-weight: 300;
+}
+p {
+    font-weight: 300;
+}
+figcaption {
+    text-align: center;
+    font-weight: 300;
+    padding-bottom: 15px;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.discord {
+    text-align:center;
+    flex: 1;
+    padding: 10px;
+}
+.contact {
+    flex: 1;
+    text-align: center;
+    background-color: rgb(87, 103, 214);
+    border-radius: 10px;
+    padding: 10px;
+}
+@media screen and (max-width: 768px) {
+    
+    .content {
+        flex-direction: column;
+    }
+
+    .contact {
+        order: 2;
+        margin-top: 20px;
+    }
+}
+.inbox {
+    display: flex;
+    border-radius: 20px;
+    background-color: rgb(70, 194, 203);
+    padding: 1px;
+    justify-content: space-between;
+    align-items: center;
+}
+.inboxtext {
+    font-weight: 400;
+}
+[id^="contentToCopy"] {
+    display: none;
+}
+#copyToClipboardButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding-right: 10px;
+    
+}
+#copyToClipboardButton img {
+    width: 24px;
+    height: 24px;
+}
+#copyToClipboardButton:hover {
+    filter: brightness(1.2);
+}
+
+.inboxhr {
+    border: 1px solid rgb(87, 103, 214);
+}
+.email{
+    padding-left: 5;
+    padding-top: 3;
+}
+.button {
+        padding: 10;
+        color: rgb(242, 247, 161);
+}
+.chatbot {
+    border-radius: 15px;
+}

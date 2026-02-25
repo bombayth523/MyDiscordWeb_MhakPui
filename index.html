@@ -1,0 +1,87 @@
+<DOCT!YPE html>
+    <html lang="th">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Home</title>
+    </head>
+
+    <body>
+        <h1> เข้ามาหน้านี้ทำไมหรอครับ? </h1>
+        <p class="headP"> เว็บนี้มันไม่มีอะไรหรอก </p>
+        <br>
+        <hr noshade>
+        <div class="content">
+            <div class="discord">
+                <h3> มาเข้าดิสผมกันมั้ยยย? </h3>
+                <div class="iframeD">
+                    <iframe src="https://discord.com/widget?id=826744229111267338&theme=dark" width="300" height="450"
+                        allowtransparency="true" frameborder="0"
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                </div>
+                <p>จะเข้าก็ได้นะ ถ้าไม่เข้าก็ไม่เป็นไรหรอก...</p>
+            </div>
+            <div class="contact">
+                <h3> เว็บอื่น ๆ เพิ่มเติม </h3>
+                <figcaption> เข้าไปลองเล่นกันได้เลย </figcaption>
+                <div class="inbox">
+                    <img src="img/discordlogo.png" alt="Discord" width="60" height="60">
+                    <p class="inboxtext"> อ่านข้อตกลง เซิร์ฟเวอร์กลุ่มหมักปุ๋ย </p>
+                    <a href="DiscordPDPA/accepttheterms.html" target="_blank" class="button"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                      </svg> </a>
+                </div>
+                <hr class="inboxhr" noshade>
+                <div class="inbox">
+                    <img src="https://avatars.githubusercontent.com/u/8170782?s=200&v=4"
+                        alt="chatbot" width="40" height="40" style="border-radius: 50%; margin-left: 10px;">
+                    <p class="inboxtext"> คุยกับแชตบอท Bombie ที่เอ๋อๆเหมือนเจ้าของ </p>
+                    <a href="chatbot.html" target="_blank" class="button"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                      </svg> </a>
+                </div>
+                <hr class="inboxhr" noshade>
+                <hr>
+                <h3> มีอะไรจะติดต่อผมรึเปล่า? </h3>
+                <figcaption> สามมารถติดต่อผมได้ตามช่องทางเหล่านี้ได้เลย </figcaption>
+                <div class="inbox">
+                    <img src="img/discordlogo.png" alt="Discord" width="60" height="60">
+                    <p class="inboxtext">DMมาที่ barombombie</p>
+                    <p id="contentToCopy1">barombombie</p>
+                    <button id="copyToClipboardButton" onclick="copyToClipboard(1)">
+                        <img src="img/copy.png" alt="คัดลอกไปยังคลิปบอร์ด">
+                    </button>
+                </div>
+                <hr class="inboxhr" noshade>
+                <div class="inbox">
+                    <img src="img/discordlogo.png" alt="Discord" width="60" height="60">
+                    <p class="inboxtext"> เซิร์ฟเวอร์กลุ่มหมักปุ๋ย </p>
+                    <a href="https://discord.gg/G2a2ZjM27F" target="_blank" class="button"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                      </svg> </a>
+                </div>
+                <hr class="inboxhr" noshade>
+                <div class="inbox">
+                    <img class="email" src="img/email.png" alt="Email" width="48" height="48">
+                    <p class="inboxtext">inboxbombay@gmail.com</p>
+                    <p id="contentToCopy2">inboxbombay@gmail.com</p>
+                    <button id="copyToClipboardButton" onclick="copyToClipboard(2)">
+                        <img src="img/copy.png" alt="คัดลอกไปยังคลิปบอร์ด">
+                    </button>
+                </div>
+                <hr class="inboxhr" noshade>
+            </div>
+        </div>
+        <br>
+        <script src="script.js"></script>
+        <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+        <df-messenger
+            chat-icon="https://cdn.discordapp.com/attachments/936969346083848212/1224277582174752818/330765683_723105196070187_2033006375309460905jj_n.jpg?ex=661ce859&is=660a7359&hm=b82c598a0393c8c1bc116f300083c3d857746951e19642c5e799f4a91a935d0c&"
+            intent="WELCOME" chat-title="babombaromBOT" agent-id="10e38222-0dfa-4b1e-a697-e959528cf96d"
+            language-code="th"></df-messenger>
+    </body>
+
+    </html>
