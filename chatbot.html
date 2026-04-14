@@ -1,23 +1,67 @@
-<DOCT!YPE html>
+<!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กลุ่มหมักปุ๋ย | แชตบอท</title>
     <link rel="stylesheet" href="style.css">
-    <title>Chatbot</title>
+    <style>
+        /* To make Dialogflow float nicely but allow scrolling if needed */
+        df-messenger {
+            --df-messenger-bot-message: #878fac;
+            --df-messenger-button-titlebar-color: var(--accent-purple);
+            --df-messenger-chat-background-color: #fafafa;
+            --df-messenger-font-color: white;
+            --df-messenger-send-icon: #878fac;
+            --df-messenger-user-message: var(--accent-cyan);
+            z-index: 999;
+        }
+    </style>
 </head>
-<body class="chatbot-body">
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <img src="img/discordlogo.png" alt="Logo" width="30" height="30">
+            กลุ่มหมักปุ๋ย
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">หน้าแรก</a>
+            <a href="DiscordPDPA/accepttheterms.html">กฎเซิร์ฟเวอร์</a>
+            <a href="chatbot.html" style="color: var(--accent-cyan);">แชตบอท</a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <section class="hero">
+            <h1>แชตบอท Bombie</h1>
+            <p>ลองคุยกับบอทที่เอ๋อสุดๆ ดูสิ! (คลิกที่ไอคอนมุมขวาล่าง)</p>
+        </section>
+
+        <div class="content-wrapper" style="justify-content: center;">
+            <article class="glass-panel" style="max-width: 600px; text-align: center;">
+                <h3>วิธีใช้งานแชตบอท</h3>
+                <p style="margin-bottom: 20px;">
+                    คลิกที่ไอคอนแชตที่มุมขวาล่างของหน้าจอเพื่อเริ่มการสนทนา <br>
+                    สามารถถามคำถามทั่วไป หรือลองพิมพ์อะไรกวนๆ ดูก็ได้
+                </p>
+                <div class="inbox" style="background: rgba(255, 255, 255, 0.1);">
+                    <div class="inbox-content">
+                        <p class="inboxtext" style="color: var(--accent-cyan); font-weight: 500;">
+                            💡 ทิป: ถ้าบอทตอบกลับว่า [empty response] แปลว่ามันไม่รู้จะตอบยังไง (เอ๋อจัด)
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-<df-messenger
-  chat-icon="https:&#x2F;&#x2F;avatars.githubusercontent.com&#x2F;u&#x2F;8170782?s=200&ampv=4"
-  intent="WELCOME"
-  chat-title="babombaromBOT"
-  agent-id="10e38222-0dfa-4b1e-a697-e959528cf96d"
-  language-code="th"
-></df-messenger>
-    <!--<br>
-    <h5 style="font-weight: 100; color: white; text-align: center;" >ถ้าบอทตอบกลับว่า [empty response] คือไม่มีคำตอบหรือมันไม่รู้จะตอบยังไง</h5>-->
-    
+    <df-messenger chat-icon="https://avatars.githubusercontent.com/u/8170782?s=200&v=4" intent="WELCOME"
+        chat-title="babombaromBOT" agent-id="10e38222-0dfa-4b1e-a697-e959528cf96d" language-code="th"></df-messenger>
+
 </body>
-</html>  
+
+</html>
