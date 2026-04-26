@@ -143,11 +143,13 @@ header {
     padding-bottom: 15px;
 }
 
-.glass-panel figcaption {
+.glass-panel figcaption,
+.panel-subtitle {
     text-align: center;
-    opacity: 0.8;
+    opacity: 0.75;
     margin-bottom: 20px;
     font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 /* Iframe */
@@ -198,7 +200,7 @@ header {
 }
 
 .button,
-#copyToClipboardButton {
+.copy-btn {
     background: var(--accent-purple);
     color: var(--text-light);
     border: none;
@@ -211,22 +213,23 @@ header {
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .button:hover,
-#copyToClipboardButton:hover {
+.copy-btn:hover {
     background: var(--accent-blue);
     transform: scale(1.1);
 }
 
 .button svg,
-#copyToClipboardButton img {
+.copy-btn img {
     width: 20px;
     height: 20px;
     display: block;
 }
 
-#copyToClipboardButton img {
+.copy-btn img {
     filter: brightness(0) invert(1);
     border-radius: 0;
 }
