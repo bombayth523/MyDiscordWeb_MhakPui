@@ -7,18 +7,17 @@
 
 - **Discord Widget**: แสดงสถานะและเชิญชวนเข้าเซิร์ฟเวอร์ Discord "กลุ่มหมักปุ๋ย"
 - **แชตบอท (Chatbot)**: มีหน้า `chatbot.html` ที่เชื่อมต่อกับ Dialogflow messenger สำหรับพูดคุยกับบอท (Bombie)
-- **Discord PDPA**: หน้าต่างอ่านข้อตกลงของเซิร์ฟเวอร์ (`DiscordPDPA/accepttheterms.html`)
+- **Discord PDPA / Rules**: หน้าต่างอ่านกฎและข้อตกลงของเซิร์ฟเวอร์ (`rules/index.html`)
 - **ระบบคัดลอกง่ายๆ (Copy to Clipboard)**:
-  - คัดลอกชื่อ Discord (barombombie) หรือ Email (inboxbombay@gmail.com) ไปยังคลิปบอร์ดได้ทันทีจากหน้าเว็บ
-  - ปุ่มลิงก์เพื่อเข้าร่วมเซิร์ฟเวอร์ Discord "กลุ่มหมักปุ๋ย"
+  - คัดลอกชื่อ Discord หรือ Email ไปยังคลิปบอร์ดได้ทันทีด้วย Notification แบบ Toast แจ้งเตือนสุดคูล
 
 ## 📁 โครงสร้างโปรเจกต์ (Project Structure)
 
 - `index.html` - หน้าหลักของเว็บไซต์ รวมลิงก์ช่องทางต่างๆ แบบครบถ้วน
-- `chatbot.html` - หน้าเว็บสำหรับการคุยกับแชตบอท (Dialogflow)
-- `style.css` - ไฟล์ตกแต่งและจัดการหน้าต่าง (UI) ของแต่ละส่วนให้ดูเป็นระเบียบ
-- `script.js` - โค้ด JavaScript สำหรับฟังก์ชันอย่างการคัดลอกข้อบัญชี (Copy to clipboard)
-- `DiscordPDPA/` - ชุดหน้าต่าง (รวมถึง css ของมันเอง) ที่ใช้อ่านข้อเกี่ยวกับการยอมรับเงื่อนไขเซิร์ฟเวอร์ 
+- `chatbot/index.html` - หน้าเว็บสำหรับการคุยกับแชตบอท (Dialogflow)
+- `rules/index.html` - ชุดหน้าต่างที่ใช้อ่านข้อเกี่ยวกับการยอมรับเงื่อนไขและกฎเซิร์ฟเวอร์
+- `style.css` - ไฟล์ตกแต่งและจัดการหน้าต่าง (UI) ของทุกหน้า
+- `script.js` - โค้ด JavaScript สำหรับฟังก์ชันอย่างการคัดลอกข้อความลงคลิปบอร์ด (Clipboard API)
 - `img/` - โฟลเดอร์สำหรับเก็บภาพประกอบบนเว็บไซต์ (เช่น logo discord, email icon)
 
 ## 🚀 การเปิดใช้งานโปรเจกต์ (Getting Started)
