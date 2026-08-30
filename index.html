@@ -7,16 +7,15 @@
     <meta name="description" content="เว็บไซต์ของกลุ่มหมักปุ๋ย — เซิร์ฟเวอร์ Discord กลุ่มเล็กๆ สำหรับพูดคุย แชร์ และสนุกกันไปด้วยกัน">
     <title>กลุ่มหมักปุ๋ย | หน้าแรก</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
     <header>
         <a href="index.html" class="logo">
-            <img src="img/discordlogo.png" alt="Logo" width="30" height="30">
+            <img src="img/discordlogo.png" alt="Logo" width="28" height="28">
             กลุ่มหมักปุ๋ย
         </a>
         <nav class="nav-links">
-            <a href="./index.html" style="color: var(--accent-cyan);">หน้าแรก</a>
+            <a href="./index.html" class="active">หน้าแรก</a>
             <a href="./rules/index.html">กฎเซิร์ฟเวอร์</a>
             <a href="./chatbot/index.html">แชตบอท</a>
         </nav>
@@ -32,45 +31,48 @@
             <article class="glass-panel discord-panel">
                 <h3>มาเข้าดิสผมกันมั้ยยย?</h3>
                 <div class="iframeD">
-                    <iframe src="https://discord.com/widget?id=826744229111267338&theme=dark" width="100%" height="450"
+                    <iframe src="https://discord.com/widget?id=826744229111267338&theme=dark" width="100%" height="420"
                         allowtransparency="true" frameborder="0"
                         sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </div>
-                <p style="text-align: center; opacity: 0.8;">จะเข้าก็ได้นะ ถ้าไม่เข้าก็ไม่เป็นไรหรอก...</p>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.875rem;">จะเข้าก็ได้นะ ถ้าไม่เข้าก็ไม่เป็นไรหรอก...</p>
             </article>
 
             <article class="glass-panel links-panel">
                 <h3>เว็บอื่น ๆ เพิ่มเติม</h3>
                 <p class="panel-subtitle">เข้าไปลองเล่นกันได้ หรืออ่านข้อตกลงก่อนเข้าดิส</p>
 
-                
                 <div class="inbox">
                     <div class="inbox-content">
-                        <img src="img/discordlogo.png" alt="Discord" width="50" height="50">
-                        <p class="inboxtext">กฎและข้อตกลง เซิร์ฟเวอร์กลุ่มหมักปุ๋ย</p>
+                        <img src="img/discordlogo.png" alt="Discord" width="42" height="42">
+                        <div>
+                            <p class="inboxtext">กฎและข้อตกลง</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">เซิร์ฟเวอร์กลุ่มหมักปุ๋ย</p>
+                        </div>
                     </div>
-                    <a href="./rules/index.html" class="button"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/></svg> 
+                    <a href="./rules/index.html" class="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/></svg>
                     </a>
                 </div>
 
                 <div class="inbox">
                     <div class="inbox-content">
-                        <img src="https://avatars.githubusercontent.com/u/8170782?s=200&v=4" alt="chatbot" width="50" height="50">
-                        <p class="inboxtext">คุยกับแชตบอท Bombie สุดเอ๋อ</p>
+                        <img src="https://avatars.githubusercontent.com/u/8170782?s=200&v=4" alt="chatbot" width="42" height="42">
+                        <div>
+                            <p class="inboxtext">แชตบอท Bombie</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">บอทสุดเอ๋อของกลุ่ม</p>
+                        </div>
                     </div>
-                    <a href="./chatbot/index.html" class="button"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/></svg> 
+                    <a href="./chatbot/index.html" class="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/></svg>
                     </a>
                 </div>
 
-                <h3 style="margin-top: 30px;">ช่องทางการติดต่อ</h3>
-                <p class="panel-subtitle">มีอะไรสงสัย ติดต่อได้เลย</p>
-
+                <p class="section-label">ช่องทางการติดต่อ</p>
 
                 <div class="inbox">
                     <div class="inbox-content">
-                        <img src="img/discordlogo.png" alt="Discord" width="50" height="50">
+                        <img src="img/discordlogo.png" alt="Discord" width="42" height="42">
                         <div>
                             <p class="inboxtext">DM มาที่ <strong>barombombie</strong></p>
                             <p id="contentToCopy1">barombombie</p>
@@ -79,12 +81,11 @@
                     <button id="copyBtn1" class="copy-btn" onclick="copyToClipboard(1)" title="คัดลอก">
                         <img src="img/copy.png" alt="Copy">
                     </button>
-
                 </div>
 
                 <div class="inbox">
                     <div class="inbox-content">
-                        <img class="email" src="img/email.png" alt="Email" width="50" height="50" style="background: white; padding: 5px; border-radius: 50%;">
+                        <img class="email" src="img/email.png" alt="Email" width="42" height="42" style="background: white; padding: 5px; border-radius: 50%;">
                         <div>
                             <p class="inboxtext"><strong>inboxbombay@gmail.com</strong></p>
                             <p id="contentToCopy2">inboxbombay@gmail.com</p>
@@ -93,14 +94,13 @@
                     <button id="copyBtn2" class="copy-btn" onclick="copyToClipboard(2)" title="คัดลอก">
                         <img src="img/copy.png" alt="Copy">
                     </button>
-
                 </div>
             </article>
         </div>
     </main>
 
     <footer>
-        &copy; 2026 กลุ่มหมักปุ๋ย - All rights reserved.
+        &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
     </footer>
 
     <script src="script.js"></script>

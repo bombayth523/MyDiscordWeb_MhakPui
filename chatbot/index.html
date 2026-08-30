@@ -9,16 +9,14 @@
     <title>กลุ่มหมักปุ๋ย | แชตบอท</title>
     <link rel="stylesheet" href="../style.css">
 
-
     <style>
-        /* To make Dialogflow float nicely but allow scrolling if needed */
         df-messenger {
-            --df-messenger-bot-message: #878fac;
-            --df-messenger-button-titlebar-color: var(--accent-purple);
-            --df-messenger-chat-background-color: #fafafa;
-            --df-messenger-font-color: white;
-            --df-messenger-send-icon: #878fac;
-            --df-messenger-user-message: var(--accent-cyan);
+            --df-messenger-bot-message: #e3e5e8;
+            --df-messenger-button-titlebar-color: #5865f2;
+            --df-messenger-chat-background-color: #f2f3f5;
+            --df-messenger-font-color: #1e1f22;
+            --df-messenger-send-icon: #5865f2;
+            --df-messenger-user-message: #5865f2;
             z-index: 999;
         }
     </style>
@@ -27,33 +25,54 @@
 <body>
     <header>
         <a href="../index.html" class="logo">
-            <img src="../img/discordlogo.png" alt="Logo" width="30" height="30">
+            <img src="../img/discordlogo.png" alt="Logo" width="28" height="28">
             กลุ่มหมักปุ๋ย
         </a>
         <nav class="nav-links">
             <a href="../index.html">หน้าแรก</a>
             <a href="../rules/index.html">กฎเซิร์ฟเวอร์</a>
-            <a href="../chatbot/index.html" style="color: var(--accent-cyan);">แชตบอท</a>
+            <a href="../chatbot/index.html" class="active">แชตบอท</a>
         </nav>
     </header>
 
     <main class="main-container">
         <section class="hero">
             <h1>แชตบอท Bombie</h1>
-            <p>ลองคุยกับบอทที่เอ๋อสุดๆ ดูสิ! (คลิกที่ไอคอนมุมขวาล่าง)</p>
+            <p>ลองคุยกับบอทที่เอ๋อสุดๆ ดูสิ!</p>
         </section>
 
         <div class="content-wrapper" style="justify-content: center;">
-            <article class="glass-panel" style="max-width: 600px; text-align: center;">
+            <article class="glass-panel" style="max-width: 600px;">
                 <h3>วิธีใช้งานแชตบอท</h3>
-                <p style="margin-bottom: 20px;">
-                    คลิกที่ไอคอนแชตที่มุมขวาล่างของหน้าจอเพื่อเริ่มการสนทนา <br>
-                    สามารถถามคำถามทั่วไป หรือลองพิมพ์อะไรกวนๆ ดูก็ได้
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.7;">
+                    คลิกที่ไอคอนแชตที่มุมขวาล่างของหน้าจอเพื่อเริ่มการสนทนา<br>
+                    Bombie ไม่ใช่ AI — เป็นบอทที่ตอบตามคำถาม-คำตอบที่ตั้งไว้ล่วงหน้าเท่านั้น ไม่ได้คิดหรือเรียนรู้เองได้
                 </p>
-                <div class="inbox" style="background: rgba(255, 255, 255, 0.1);">
+
+                <div class="chatbot-features">
+                    <div class="feature-item">
+                        <span class="icon">💬</span>
+                        <span>ตอบตามคำถามที่ตั้งไว้ล่วงหน้า</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">📋</span>
+                        <span>ไม่ได้คิดหรือเรียนรู้เอง</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">🇹🇭</span>
+                        <span>รองรับภาษาไทย</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">⚠️</span>
+                        <span>ไม่เข้าใจทุกคำถาม</span>
+                    </div>
+                </div>
+
+                <div class="inbox" style="margin-top: 8px;">
                     <div class="inbox-content">
-                        <p class="inboxtext" style="color: var(--accent-cyan); font-weight: 500;">
-                            💡 ทิป: ถ้าบอทตอบกลับว่า [empty response] แปลว่ามันไม่รู้จะตอบยังไง (เอ๋อจัด)
+                        <span style="font-size: 1.3rem;">💡</span>
+                        <p class="inboxtext" style="color: var(--text-muted); font-size: 0.85rem;">
+                            ถ้าบอทตอบว่า [empty response] แปลว่าคำถามนั้นยังไม่ได้ถูกสอนไว้
                         </p>
                     </div>
                 </div>
@@ -62,7 +81,7 @@
     </main>
 
     <footer>
-        &copy; 2026 กลุ่มหมักปุ๋ย - All rights reserved.
+        &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
     </footer>
 
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
