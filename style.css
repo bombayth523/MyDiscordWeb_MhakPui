@@ -1065,6 +1065,17 @@ body.chat-expanded-lock {
   flex-direction: row-reverse;
 }
 
+.chat-msg-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 82%;
+  min-width: 0;
+}
+.user-row .chat-msg-body {
+  align-items: flex-end;
+}
+
 .chat-avatar-mini {
   width: 32px;
   height: 32px;
@@ -1120,7 +1131,9 @@ body.chat-expanded-lock {
   padding: 10px 14px;
   font-size: 0.82rem;
   line-height: 1.6;
-  max-width: 88%;
+  width: fit-content;
+  max-width: 100%;
+  overflow-wrap: break-word;
   word-break: break-word;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
@@ -1137,7 +1150,9 @@ body.chat-expanded-lock {
   padding: 10px 14px;
   font-size: 0.82rem;
   line-height: 1.6;
-  max-width: 88%;
+  width: fit-content;
+  max-width: 100%;
+  overflow-wrap: break-word;
   word-break: break-word;
   box-shadow: 0 2px 8px rgba(88, 101, 242, 0.25);
 }

@@ -186,7 +186,7 @@ function showToast(message) {
       '<div class="chat-avatar-mini">' +
         '<img src="' + avatarUrl + '" alt="' + authorName + '">' +
       '</div>' +
-      '<div style="max-width: 85%;">' +
+      '<div class="chat-msg-body">' +
         '<div class="chat-meta">' +
           '<span class="chat-author">' + authorName + '</span>' +
           tagHtml +
@@ -567,7 +567,7 @@ function showToast(message) {
         '<div class="chat-avatar-mini">' +
           '<img src="' + AVATAR_BOT + '" alt="Bombie">' +
         '</div>' +
-        '<div style="max-width: 85%;">' +
+        '<div class="chat-msg-body">' +
           '<div class="chat-meta">' +
             '<span class="chat-author">Bombie</span>' +
             '<span class="chat-tag-bot">BOT</span>' +
