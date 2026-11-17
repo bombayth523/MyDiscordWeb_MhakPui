@@ -1,93 +1,310 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" data-theme="dark">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="คุยกับแชตบอท Bombie ของกลุ่มหมักปุ๋ย — บอทเอ๋อที่ตอบได้ทุกคำถาม (บ้างครั้ง)">
-    <title>กลุ่มหมักปุ๋ย | แชตบอท</title>
-    <link rel="stylesheet" href="../style.css?v=2">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="คุยกับแชตบอท Bombie ของกลุ่มหมักปุ๋ย — บอทตอบคำถามข้อมูลและเรื่องน่ารู้ในเซิร์ฟเวอร์">
+  <title>กลุ่มหมักปุ๋ย — แชตบอท Bombie</title>
 
-    <style>
-        df-messenger {
-            --df-messenger-bot-message: #e3e5e8;
-            --df-messenger-button-titlebar-color: #5865f2;
-            --df-messenger-chat-background-color: #f2f3f5;
-            --df-messenger-font-color: #1e1f22;
-            --df-messenger-send-icon: #5865f2;
-            --df-messenger-user-message: #5865f2;
-            z-index: 999;
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Prompt"', '"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            discord: {
+              DEFAULT: '#5865F2',
+              hover: '#4752C4',
+              active: '#3C45A5',
+              dark: '#232428',
+              card: '#1e1f22',
+            },
+            surface: {
+              base: 'var(--surface-base)',
+              panel: 'var(--surface-panel)',
+              card: 'var(--surface-card)',
+              highlight: 'var(--surface-highlight)',
+              border: 'var(--surface-border)'
+            }
+          }
         }
-    </style>
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet with Cache Busting v3.4 -->
+  <link rel="stylesheet" href="../style.css?v=3.4">
+
+  <!-- Immediate Theme Initializer -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('mhakpui-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
 </head>
 
 <body>
-    <header>
-        <a href="../index.html" class="logo">
-            <img src="../img/discordlogo.png" alt="Logo" width="28" height="28">
-            กลุ่มหมักปุ๋ย
-        </a>
-        <nav class="nav-links">
-            <a href="../index.html">หน้าแรก</a>
-            <a href="../rules/index.html">กฎเซิร์ฟเวอร์</a>
-            <a href="../chatbot/index.html" class="active">แชตบอท</a>
-        </nav>
-    </header>
 
-    <main class="main-container">
-        <section class="hero">
-            <h1>แชตบอท Bombie</h1>
-            <p>ลองคุยกับบอทที่เอ๋อสุดๆ ดูสิ!</p>
-        </section>
+  <!-- Top Notification Strip (Hidden on Mobile) -->
+  <div class="announce-strip">
+    <div class="announce-content">
+      <div class="flex items-center gap-2">
+        <span class="badge">OFFICIAL</span>
+        <span>พื้นที่รวมตัวพูดคุย เล่นเกม แลกเปลี่ยนมีม และนั่งชิลของกลุ่มหมักปุ๋ย</span>
+      </div>
+      <div class="status-indicator">
+        <span class="dot"></span>
+        <span>เซิร์ฟเวอร์เปิดปกติ</span>
+      </div>
+    </div>
+  </div>
 
-        <div class="content-wrapper" style="justify-content: center;">
-            <article class="glass-panel" style="max-width: 600px;">
-                <h3>วิธีใช้งานแชตบอท</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.7;">
-                    คลิกที่ไอคอนแชตที่มุมขวาล่างของหน้าจอเพื่อเริ่มการสนทนา<br>
-                    Bombie ไม่ใช่ AI — เป็นบอทที่ตอบตามคำถาม-คำตอบที่ตั้งไว้ล่วงหน้าเท่านั้น ไม่ได้คิดหรือเรียนรู้เองได้
-                </p>
-
-                <div class="chatbot-features">
-                    <div class="feature-item">
-                        <span class="icon">💬</span>
-                        <span>ตอบตามคำถามที่ตั้งไว้ล่วงหน้า</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">📋</span>
-                        <span>ไม่ได้คิดหรือเรียนรู้เอง</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">🇹🇭</span>
-                        <span>รองรับภาษาไทย</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">⚠️</span>
-                        <span>ไม่เข้าใจทุกคำถาม</span>
-                    </div>
-                </div>
-
-                <div class="inbox" style="margin-top: 8px;">
-                    <div class="inbox-content">
-                        <span style="font-size: 1.3rem;">💡</span>
-                        <p class="inboxtext" style="color: var(--text-muted); font-size: 0.85rem;">
-                            ถ้าบอทตอบว่า [empty response] แปลว่าคำถามนั้นยังไม่ได้ถูกสอนไว้
-                        </p>
-                    </div>
-                </div>
-            </article>
+  <!-- Primary Header -->
+  <header>
+    <div class="header-container">
+      <!-- Brand Logo -->
+      <a href="../index.html" class="logo">
+        <div class="w-8 h-8 rounded-lg bg-discord/20 p-0.5 flex items-center justify-center shrink-0">
+          <img src="../img/discordlogo.png" alt="Discord" class="w-6 h-6 object-contain">
         </div>
-    </main>
+        <span>กลุ่มหมักปุ๋ย</span>
+      </a>
 
-    <footer>
-        &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
-    </footer>
+      <!-- Navigation Links -->
+      <nav class="nav-links">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../rules/index.html">กฎเซิร์ฟเวอร์</a>
+        <a href="../chatbot/index.html" class="active">แชตบอท</a>
+        <a href="../contact/index.html">ติดต่อ</a>
+      </nav>
 
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <df-messenger chat-icon="https://avatars.githubusercontent.com/u/8170782?s=200&v=4" intent="WELCOME"
-        chat-title="babombaromBOT" agent-id="10e38222-0dfa-4b1e-a697-e959528cf96d" language-code="th"></df-messenger>
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="สลับธีม">
+          <span class="material-symbols-outlined">light_mode</span>
+        </button>
+        <a href="https://discord.gg/zXkMQqmtnw" target="_blank" rel="noopener" class="btn-discord">
+          <span class="material-symbols-outlined">login</span>
+          <span>เข้า Discord ทันที</span>
+        </a>
+      </div>
+    </div>
+  </header>
 
+  <!-- Main Content -->
+  <main>
+
+    <!-- Bot Header Card -->
+    <div class="bot-header-card">
+      <div class="flex items-start gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0 shadow-lg shadow-amber-500/10 overflow-hidden">
+          <img src="https://avatars.githubusercontent.com/u/8170782?s=200&v=4" alt="Bombie Avatar" class="w-10 h-10 rounded-xl object-cover" onerror="this.src='../img/discordlogo.png'">
+        </div>
+        <div class="bot-info">
+          <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 text-[11px] font-semibold mb-1 border border-amber-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+            <span>DIALOGFLOW BOT</span>
+          </div>
+          <h2>แชตบอท Bombie (บอมบี้)</h2>
+          <p>บอทผู้ช่วยประจำกลุ่มที่อาจจะเอ๋อๆ นิดหน่อย แต่ตอบคำถามพื้นฐานได้นะ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-Column Layout -->
+    <div class="chatbot-grid">
+
+      <!-- Left Column: Bot Facts & Suggested Prompts -->
+      <div class="card space-y-5">
+        <h3 class="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-theme-primary">
+          <span class="material-symbols-outlined text-amber-400" style="font-size:18px;">info</span>
+          <span>ทำความเข้าใจก่อนคุยกับ Bombie</span>
+        </h3>
+
+        <!-- 4 Info Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3.5 rounded-xl bg-surface-card border border-surface-border space-y-1">
+            <div class="text-amber-400 font-bold text-xs flex items-center gap-1.5">
+              <span class="material-symbols-outlined" style="font-size:16px;">auto_awesome</span>
+              <span>Hybrid AI + Rules</span>
+            </div>
+            <p class="text-[11px] text-theme-muted leading-relaxed">
+              ตอบไวด้วยชุดคำถามของกลุ่ม และมีสมอง AI เสริมช่วยตอบคำถามนอกตำราตามสไตล์ Bombie
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-surface-card border border-surface-border space-y-1">
+            <div class="text-indigo-400 font-bold text-xs flex items-center gap-1.5">
+              <span class="material-symbols-outlined" style="font-size:16px;">translate</span>
+              <span>ภาษาไทยเป็นหลัก</span>
+            </div>
+            <p class="text-[11px] text-theme-muted leading-relaxed">
+              เน้นทักทายและตอบคำถามภาษาไทยทั่วไปเกี่ยวกับเซิร์ฟเวอร์กลุ่มหมักปุ๋ย
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-surface-card border border-surface-border space-y-1">
+            <div class="text-emerald-400 font-bold text-xs flex items-center gap-1.5">
+              <span class="material-symbols-outlined" style="font-size:16px;">forum</span>
+              <span>แชตสดด้านขวามือ</span>
+            </div>
+            <p class="text-[11px] text-theme-muted leading-relaxed">
+              กล่องข้อความด้านขวาเชื่อมต่อกับ Dialogflow พร้อมคุยและตอบคำถามได้ตลอดเวลา
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-surface-card border border-surface-border space-y-1">
+            <div class="text-rose-400 font-bold text-xs flex items-center gap-1.5">
+              <span class="material-symbols-outlined" style="font-size:16px;">verified_user</span>
+              <span>Free Tier 0 บาท</span>
+            </div>
+            <p class="text-[11px] text-theme-muted leading-relaxed">
+              เชื่อมต่อโควต้าฟรี ปลอดภัย API Key ไม่รั่วไหล ไม่มีค่าใช้จ่ายแอบแฝง
+            </p>
+          </div>
+        </div>
+
+        <!-- Suggested Questions -->
+        <div class="pt-3 border-t border-surface-border space-y-2">
+          <div class="text-xs font-semibold text-theme-primary">ตัวอย่างคำถามที่ลองคลิกทักบอทได้ทันที:</div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="promptToBot('สวัสดี')" class="prompt-chip">
+              <span class="material-symbols-outlined text-[15px] text-discord">waving_hand</span>
+              <span>"สวัสดี"</span>
+            </button>
+            <button type="button" onclick="promptToBot('กลุ่มหมักปุ๋ยคืออะไร')" class="prompt-chip">
+              <span class="material-symbols-outlined text-[15px] text-discord">help</span>
+              <span>"กลุ่มหมักปุ๋ยคืออะไร"</span>
+            </button>
+            <button type="button" onclick="promptToBot('มีใครอยู่บ้าง')" class="prompt-chip">
+              <span class="material-symbols-outlined text-[15px] text-discord">group</span>
+              <span>"มีใครอยู่บ้าง"</span>
+            </button>
+            <button type="button" onclick="promptToBot('ทำอะไรได้บ้าง')" class="prompt-chip">
+              <span class="material-symbols-outlined text-[15px] text-discord">smart_toy</span>
+              <span>"ทำอะไรได้บ้าง"</span>
+            </button>
+            <button type="button" onclick="promptToBot('เซิร์ฟร้างไหม')" class="prompt-chip">
+              <span class="material-symbols-outlined text-[15px] text-discord">psychology</span>
+              <span>"เซิร์ฟร้างไหม"</span>
+            </button>
+            <button type="button" onclick="promptToBot('ยืมเงินหน่อย')" class="prompt-chip">
+              <span class="material-symbols-outlined text-[15px] text-discord">payments</span>
+              <span>"ยืมเงินหน่อย"</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Native Discord Chat UI (Option B) -->
+      <div class="chat-card-container" id="live-chat-card">
+        <!-- Chat Header Bar -->
+        <div class="chat-header-bar">
+          <div class="flex items-center gap-2.5">
+            <div class="relative w-8 h-8 rounded-full overflow-hidden bg-amber-500/20 border border-amber-500/30 shrink-0">
+              <img src="https://avatars.githubusercontent.com/u/8170782?s=200&v=4" alt="Bombie" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5 leading-none mb-1">
+                <span class="font-bold text-xs text-theme-primary">Bombie</span>
+                <span class="chat-tag-bot">BOT</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-[11px] text-theme-muted">ออนไลน์ • เชื่อมต่อ Dialogflow</span>
+              </div>
+            </div>
+          </div>
+          <button type="button" onclick="clearChatHistory()" class="btn-copy-chip text-[11px]" title="เริ่มคุยใหม่">
+            <span class="material-symbols-outlined text-[15px]">restart_alt</span>
+            <span>เริ่มใหม่</span>
+          </button>
+        </div>
+
+        <!-- Chat Messages Feed -->
+        <div class="chat-messages-feed" id="chat-messages-feed">
+          <!-- Initial Bot Message -->
+          <div class="chat-message-row bot-row">
+            <div class="chat-avatar-mini">
+              <img src="https://avatars.githubusercontent.com/u/8170782?s=200&v=4" alt="Bombie">
+            </div>
+            <div style="max-width: 85%;">
+              <div class="chat-meta">
+                <span class="chat-author">Bombie</span>
+                <span class="chat-tag-bot">BOT</span>
+                <span class="chat-time">ตอนนี้</span>
+              </div>
+              <div class="chat-bubble-bot">
+                สวัสดีครับ! ผม <strong>Bombie</strong> บอทประจำกลุ่มหมักปุ๋ย มีอะไรให้ช่วย หรืออยากคุยเล่น ถามมาได้เลยนะ หรือจะกดจากตัวอย่างคำถามด้านซ้ายก็ได้ครับ!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div id="chat-typing-indicator" class="chat-typing-bar hidden">
+          <div class="flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-discord animate-bounce"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-discord animate-bounce [animation-delay:0.2s]"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-discord animate-bounce [animation-delay:0.4s]"></span>
+          </div>
+          <span class="text-[11px] text-theme-muted font-mono">Bombie กำลังพิมพ์...</span>
+        </div>
+
+        <!-- Chat Native Input Bar -->
+        <form id="chat-native-form" onsubmit="handleNativeChatSubmit(event)" class="chat-native-input-bar">
+          <input
+            type="text"
+            id="chat-native-input"
+            class="chat-native-input"
+            placeholder="พิมพ์คุยกับ Bombie... (กด Enter เพื่อส่ง)"
+            autocomplete="off"
+            maxlength="250"
+          >
+          <button
+            type="submit"
+            id="chat-native-send-btn"
+            class="chat-native-send-btn"
+            aria-label="ส่งข้อความ"
+          >
+            <span class="material-symbols-outlined text-[18px]">send</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="copy-toast">
+    <span class="material-symbols-outlined" style="font-size:18px;color:#10b981">check_circle</span>
+    <span id="toast-text">คัดลอกสำเร็จ</span>
+  </div>
+
+  <!-- Shared JavaScript with Cache Busting v3.4 -->
+  <script src="../script.js?v=3.4"></script>
 </body>
 
 </html>

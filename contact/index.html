@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ติดต่อแอดมินกลุ่มหมักปุ๋ย — ช่องทาง Discord DM หรืออีเมลโดยตรง">
+  <title>กลุ่มหมักปุ๋ย — ติดต่อแอดมิน</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Prompt"', '"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            discord: {
+              DEFAULT: '#5865F2',
+              hover: '#4752C4',
+              active: '#3C45A5',
+              dark: '#232428',
+              card: '#1e1f22',
+            },
+            surface: {
+              base: 'var(--surface-base)',
+              panel: 'var(--surface-panel)',
+              card: 'var(--surface-card)',
+              highlight: 'var(--surface-highlight)',
+              border: 'var(--surface-border)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet with Cache Busting v3.4 -->
+  <link rel="stylesheet" href="../style.css?v=3.4">
+
+  <!-- Immediate Theme Initializer -->
+  <script>
+      (function () {
+        var t = localStorage.getItem('mhakpui-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+  </script>
+</head>
+
+<body>
+
+  <!-- Top Notification Strip (Hidden on Mobile) -->
+  <div class="announce-strip">
+    <div class="announce-content">
+      <div class="flex items-center gap-2">
+        <span class="badge">OFFICIAL</span>
+        <span>พื้นที่รวมตัวพูดคุย เล่นเกม แลกเปลี่ยนมีม และนั่งชิลของกลุ่มหมักปุ๋ย</span>
+      </div>
+      <div class="status-indicator">
+        <span class="dot"></span>
+        <span>เซิร์ฟเวอร์เปิดปกติ</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Header -->
+  <header>
+    <div class="header-container">
+      <!-- Brand Logo -->
+      <a href="../index.html" class="logo">
+        <div class="w-8 h-8 rounded-lg bg-discord/20 p-0.5 flex items-center justify-center shrink-0">
+          <img src="../img/discordlogo.png" alt="Discord" class="w-6 h-6 object-contain">
+        </div>
+        <span>กลุ่มหมักปุ๋ย</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="nav-links">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../rules/index.html">กฎเซิร์ฟเวอร์</a>
+        <a href="../chatbot/index.html">แชตบอท</a>
+        <a href="../contact/index.html" class="active">ติดต่อ</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="สลับธีม">
+          <span class="material-symbols-outlined">light_mode</span>
+        </button>
+        <a href="https://discord.gg/zXkMQqmtnw" target="_blank" rel="noopener" class="btn-discord">
+          <span class="material-symbols-outlined">login</span>
+          <span>เข้า Discord ทันที</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Contact Header Card -->
+    <div class="rules-hero-card w-full">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-rose-400 text-xs font-semibold mb-2">
+          <span class="material-symbols-outlined" style="font-size:16px;">support_agent</span>
+          <span>CONTACT &amp; COMMUNITY SUPPORT</span>
+        </div>
+        <h1>ช่องทางการติดต่อแอดมิน</h1>
+        <p class="text-xs sm:text-sm text-gray-400 mt-1 max-w-xl">
+          หากมีคำถาม เสนอแนะ แจ้งปัญหาในเซิร์ฟเวอร์ หรือติดต่อสอบถามเรื่องสิทธิ์
+          สามารถติดต่อเจ้าของเซิร์ฟเวอร์ได้โดยตรงผ่านช่องทางเหล่านี้
+        </p>
+      </div>
+      <a href="../index.html" class="btn-back">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span>กลับหน้าหลัก</span>
+      </a>
+    </div>
+
+    <!-- Big Contact Cards Grid -->
+    <div class="contact-grid">
+
+      <!-- Card 1: Discord DM (Recommended) -->
+      <div class="contact-card">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-discord/15 text-discord flex items-center justify-center shrink-0">
+            <img src="../img/discordlogo.png" alt="Discord" class="w-7 h-7 object-contain">
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-discord">Recommended</span>
+            <h3 class="text-base font-bold text-theme-primary">Discord Direct Message</h3>
+            <p class="text-xs text-theme-muted mt-1 leading-relaxed">
+              ส่งข้อความส่วนตัวหาแอดมินได้โดยตรง ตอบไวกว่า เหมาะสำหรับคุยเรื่องในเซิร์ฟเวอร์
+            </p>
+            <div
+              class="mt-2 font-mono text-xs font-semibold tag-discord bg-surface-highlight px-2.5 py-1 rounded-md inline-block">
+              @barombombie
+            </div>
+            <span id="contentToCopy1">barombombie</span>
+          </div>
+        </div>
+
+        <button type="button" onclick="copyToClipboard(1)"
+          class="w-full py-2.5 rounded-xl bg-discord hover:bg-discord-hover text-white text-xs font-semibold transition flex items-center justify-center gap-2 shadow-md shadow-discord/25 cursor-pointer">
+          <span class="material-symbols-outlined text-[16px]">content_copy</span>
+          <span>คัดลอก Username (barombombie)</span>
+        </button>
+      </div>
+
+      <!-- Card 2: Email -->
+      <div class="contact-card">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-rose-500/15 text-rose-400 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-2xl">mail</span>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400">Formal Inquiry</span>
+            <h3 class="text-base font-bold text-theme-primary">Email Address</h3>
+            <p class="text-xs text-theme-muted mt-1 leading-relaxed">
+              สำหรับติดต่อเรื่องสำคัญ งาน ความร่วมมือ หรือกรณีที่ไม่สามารถเข้า Discord ได้
+            </p>
+            <div
+              class="mt-2 font-mono text-xs font-semibold tag-email bg-surface-highlight px-2.5 py-1 rounded-md inline-block">
+              inboxbombay@gmail.com
+            </div>
+            <span id="contentToCopy2">inboxbombay@gmail.com</span>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <button type="button" onclick="copyToClipboard(2)"
+            class="flex-1 py-2.5 rounded-xl bg-surface-highlight hover:bg-surface-border border border-surface-border text-theme-primary text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">content_copy</span>
+            <span>คัดลอกอีเมล</span>
+          </button>
+          <a href="mailto:inboxbombay@gmail.com"
+            class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold transition flex items-center justify-center gap-1.5 text-decoration-none">
+            <span class="material-symbols-outlined text-[16px]">send</span>
+            <span>เปิดแอปเมล</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Notes Container -->
+    <div class="flex flex-col gap-3 w-full max-w-[900px]">
+      <div
+        class="p-3.5 rounded-xl bg-surface-panel border border-surface-border text-xs text-theme-muted flex items-start gap-3">
+        <span class="material-symbols-outlined text-discord text-[18px] shrink-0 mt-0.5">schedule</span>
+        <span>
+          <strong class="text-theme-primary">เวลาตอบกลับ:</strong> ตอบกลับภายใน 24–48 ชั่วโมง ในวันทำการ
+          สำหรับเรื่องด่วนแนะนำให้ส่ง DM หาแอดมิน @barombombie โดยตรง
+        </span>
+      </div>
+
+      <div
+        class="p-3.5 rounded-xl bg-surface-panel border border-surface-border text-xs text-theme-muted flex items-start gap-3">
+        <span class="material-symbols-outlined text-amber-400 text-[18px] shrink-0 mt-0.5">info</span>
+        <span>
+          <strong class="text-theme-primary">หมายเหตุ:</strong> กรุณาระบุรายละเอียดให้ชัดเจน เช่น ชื่อบัญชี Discord,
+          ปัญหาที่พบ และเวลาที่เกิดเหตุ เพื่อให้แอดมินช่วยเหลือได้รวดเร็วขึ้น
+        </span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="copy-toast">
+    <span class="material-symbols-outlined" style="font-size:18px;color:#10b981">check_circle</span>
+    <span id="toast-text">คัดลอกสำเร็จ</span>
+  </div>
+
+  <!-- Shared JavaScript with Cache Busting v3.4 -->
+  <script src="../script.js?v=3.4"></script>
+</body>
+
+</html>

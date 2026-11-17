@@ -1,73 +1,242 @@
 <!DOCTYPE html>
-<html lang="th">
-
+<html lang="th" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="กฎและข้อตกลงในการเข้าร่วมเซิร์ฟเวอร์ Discord กลุ่มหมักปุ๋ย — โปรดอ่านก่อนเข้าร่วม">
-    <title>กลุ่มหมักปุ๋ย | กฎเซิร์ฟเวอร์</title>
-    <link rel="stylesheet" href="../style.css?v=2">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="กฎและข้อตกลงในการเข้าร่วมเซิร์ฟเวอร์ Discord กลุ่มหมักปุ๋ย — โปรดอ่านก่อนเข้าร่วม">
+  <title>กลุ่มหมักปุ๋ย — กฎและข้อตกลง</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Prompt"', '"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            discord: {
+              DEFAULT: '#5865F2',
+              hover: '#4752C4',
+              active: '#3C45A5',
+              dark: '#232428',
+              card: '#1e1f22',
+            },
+            surface: {
+              base: 'var(--surface-base)',
+              panel: 'var(--surface-panel)',
+              card: 'var(--surface-card)',
+              highlight: 'var(--surface-highlight)',
+              border: 'var(--surface-border)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet with Cache Busting v3.4 -->
+  <link rel="stylesheet" href="../style.css?v=3.4">
+
+  <!-- Immediate Theme Initializer -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('mhakpui-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
 </head>
-
 <body>
-    <header>
-        <a href="../index.html" class="logo">
-            <img src="../img/discordlogo.png" alt="Logo" width="28" height="28"
-                onerror="this.src='https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png'">
-            กลุ่มหมักปุ๋ย
-        </a>
-        <nav class="nav-links">
-            <a href="../index.html">หน้าแรก</a>
-            <a href="../rules/index.html" class="active">กฎเซิร์ฟเวอร์</a>
-            <a href="../chatbot/index.html">แชตบอท</a>
-        </nav>
-    </header>
 
-    <main class="main-container">
-        <section class="hero">
-            <h1>กฎและข้อตกลงของเซิร์ฟเวอร์</h1>
-            <p>โปรดอ่านและทำความเข้าใจก่อนเข้าร่วมเซิร์ฟเวอร์ดิสคอร์ดของเรา</p>
-        </section>
+  <!-- Top Notification Strip (Hidden on Mobile) -->
+  <div class="announce-strip">
+    <div class="announce-content">
+      <div class="flex items-center gap-2">
+        <span class="badge">OFFICIAL</span>
+        <span>พื้นที่รวมตัวพูดคุย เล่นเกม แลกเปลี่ยนมีม และนั่งชิลของกลุ่มหมักปุ๋ย</span>
+      </div>
+      <div class="status-indicator">
+        <span class="dot"></span>
+        <span>เซิร์ฟเวอร์เปิดปกติ</span>
+      </div>
+    </div>
+  </div>
 
-        <div class="content-wrapper" style="justify-content: center;">
-            <article class="glass-panel" style="max-width: 800px;">
-                <h3>ระเบียบและข้อปฏิบัติของเซิร์ฟเวอร์</h3>
-                <ul class="rules-list">
-                    <li>ห้ามส่งข้อความซ้ำหลายครั้งติดต่อกัน (ยกเว้นห้องที่ได้รับอนุญาตโดยเฉพาะ)</li>
-                    <li>ให้เกียรติสมาชิกท่านอื่น และทีมงานทุกท่านเสมอ</li>
-                    <li>ห้ามโพสต์ภาพหรือเนื้อหาลามกอนาจาร ยกเว้นในห้อง NSFW 18+ ที่กำหนดไว้</li>
-                    <li>ห้ามโพสต์เนื้อหาที่มีลักษณะเหยียดหยาม ดูถูก หรือสร้างความเกลียดชังต่อผู้อื่น</li>
-                    <li>ห้ามก่อดราม่า หรือก่อเหตุทะเลาะวิวาทภายในเซิร์ฟเวอร์</li>
-                    <li>ห้ามส่งเสียงดัง ตะโกน หรือใช้ซาวด์บอร์ดรบกวนผู้อื่นในห้องเสียง</li>
-                    <li>กรุณาตรวจสอบลิงก์ก่อนส่งทุกครั้ง หากลิงก์มีความน่าสงสัยให้แจ้งคำเตือนด้วย — หากพบลิงก์ที่ไม่ปลอดภัย ทีมงานจะดำเนินการลบทันที</li>
-                </ul>
-
-                <p class="section-label" style="margin-top: 28px;">⚠️ นโยบายความเป็นส่วนตัว (PDPA)</p>
-                <div class="pdpa-box">
-                    <p>
-                        เซิร์ฟเวอร์มีการจัดเก็บข้อมูลของสมาชิก เช่น Username, UID, ชื่อที่ใช้แสดง, รูปโปรไฟล์
-                        และข้อมูลพฤติกรรมการใช้งานภายในเซิร์ฟเวอร์ เพื่อใช้ในการบริหารจัดการและพัฒนาคุณภาพของเซิร์ฟเวอร์
-                    </p>
-                </div>
-
-                <div class="admin-info">
-                    <p style="font-weight: 500; color: var(--text-primary); margin-bottom: 10px;">
-                        เมื่อคุณยืนยันตัวตนภายในเซิร์ฟเวอร์ของเรา
-                        ถือว่าคุณยอมรับข้อตกลงทั้งหมดทันที<br>และเราขอสงวนสิทธิ์ในการปรับเปลี่ยนข้อตกลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
-                    </p>
-                    <p style="color: var(--text-muted); font-size: 0.875rem;">
-                        หากมีข้อสงสัยใด ๆ โปรดติดต่อแอดมิน: <strong style="color: var(--text-primary);">DM @barombombie</strong> หรือ
-                        <strong style="color: var(--text-primary);">inboxbombay@gmail.com</strong>
-                    </p>
-                </div>
-            </article>
+  <!-- Primary Header -->
+  <header>
+    <div class="header-container">
+      <!-- Brand Logo -->
+      <a href="../index.html" class="logo">
+        <div class="w-8 h-8 rounded-lg bg-discord/20 p-0.5 flex items-center justify-center shrink-0">
+          <img src="../img/discordlogo.png" alt="Discord" class="w-6 h-6 object-contain">
         </div>
-    </main>
+        <span>กลุ่มหมักปุ๋ย</span>
+      </a>
 
-    <footer>
-        &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
-    </footer>
+      <!-- Navigation Links -->
+      <nav class="nav-links">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../rules/index.html" class="active">กฎเซิร์ฟเวอร์</a>
+        <a href="../chatbot/index.html">แชตบอท</a>
+        <a href="../contact/index.html">ติดต่อ</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="สลับธีม">
+          <span class="material-symbols-outlined">light_mode</span>
+        </button>
+        <a href="https://discord.gg/zXkMQqmtnw" target="_blank" rel="noopener" class="btn-discord">
+          <span class="material-symbols-outlined">login</span>
+          <span>เข้า Discord ทันที</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Rules Header Card -->
+    <div class="rules-hero-card">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-indigo-400 text-xs font-semibold mb-2">
+          <span class="material-symbols-outlined" style="font-size:16px;">policy</span>
+          <span>SERVER GUIDELINES &amp; POLICY</span>
+        </div>
+        <h1>กฎและข้อตกลงของเซิร์ฟเวอร์</h1>
+        <p class="text-xs sm:text-sm text-gray-400 mt-1 max-w-xl">
+          เพื่อให้ทุกคนอยู่ร่วมกันได้อย่างสบายใจและสนุกสนาน โปรดอ่านและปฏิบัติตามแนวทางร่วมกันด้านล่างนี้
+        </p>
+      </div>
+      <a href="../index.html" class="btn-back">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span>กลับหน้าหลัก</span>
+      </a>
+    </div>
+
+    <!-- Rules Container -->
+    <div class="card w-full">
+      <h3 class="text-sm font-bold text-theme-primary uppercase tracking-wider mb-5 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-discord"></span>
+        <span>7 ข้อพึงปฏิบัติในการอยู่ร่วมกัน</span>
+      </h3>
+
+      <div class="rules-grid">
+
+        <!-- Rule 1 -->
+        <div class="rule-card">
+          <div class="rule-num">01</div>
+          <div class="rule-body">
+            <h4>งดการส่งข้อความซ้ำรัวๆ (Spam)</h4>
+            <p>ห้ามสแปมข้อความ สติกเกอร์ หรือส่งข้อความซ้ำติดต่อกันหลายครั้ง ยกเว้นในห้องที่ได้รับอนุญาตไว้โดยเฉพาะ</p>
+          </div>
+        </div>
+
+        <!-- Rule 2 -->
+        <div class="rule-card">
+          <div class="rule-num">02</div>
+          <div class="rule-body">
+            <h4>เคารพและให้เกียรติซึ่งกันและกัน</h4>
+            <p>ให้เกียรติสมาชิกท่านอื่นและทีมงานเสมอ ไม่ดูถูก เหยียดหยาม หรือบูลลี่เรื่องส่วนตัวของผู้อื่น</p>
+          </div>
+        </div>
+
+        <!-- Rule 3 -->
+        <div class="rule-card">
+          <div class="rule-num">03</div>
+          <div class="rule-body">
+            <h4>คัดแยกเนื้อหา 18+ (NSFW)</h4>
+            <p>ห้ามโพสต์ภาพหรือเนื้อหาลามกอนาจารในห้องทั่วไป หากต้องการแชร์ให้โพสต์เฉพาะในห้อง NSFW 18+ ที่กำหนดไว้เท่านั้น</p>
+          </div>
+        </div>
+
+        <!-- Rule 4 -->
+        <div class="rule-card">
+          <div class="rule-num">04</div>
+          <div class="rule-body">
+            <h4>ห้ามสร้างความเกลียดชัง (Hate Speech)</h4>
+            <p>ไม่อนุญาตให้ใช้ถ้อยคำที่มุ่งสร้างความเกลียดชังต่อเชื้อชาติ ศาสนา เพศสภาพ หรือความเชื่อใดๆ</p>
+          </div>
+        </div>
+
+        <!-- Rule 5 -->
+        <div class="rule-card">
+          <div class="rule-num">05</div>
+          <div class="rule-body">
+            <h4>งดก่อดราม่า &amp; ทะเลาะวิวาท</h4>
+            <p>หลีกเลี่ยงการเปิดประเด็นขัดแย้งที่ก่อให้เกิดบรรยากาศเป็นพิษ หากมีข้อพิพาทให้แจ้งแอดมินช่วยไกล่เกลี่ย</p>
+          </div>
+        </div>
+
+        <!-- Rule 6 -->
+        <div class="rule-card">
+          <div class="rule-num">06</div>
+          <div class="rule-body">
+            <h4>มารยาทในห้องเสียง (Voice Channel)</h4>
+            <p>ห้ามตะโกน ส่งเสียงดังผิดปกติ หรือเปิด Soundboard ก่อกวนสมาชิกผู้อื่นที่กำลังสนทนา</p>
+          </div>
+        </div>
+
+        <!-- Rule 7 (Span 2 cols on md) -->
+        <div class="rule-card span-2">
+          <div class="rule-num">07</div>
+          <div class="rule-body">
+            <h4>ระวังและตรวจสอบลิงก์ก่อนส่ง (Cyber Security)</h4>
+            <p>กรุณาตรวจสอบลิงก์ก่อนส่งทุกครั้ง หากมีลักษณะเสี่ยงให้ระบุคำเตือนชัดเจน — หากพบลิงก์ฟิชชิ่ง หลอกลวง หรือไวรัส ทีมงานจะดำเนินการลบและแบนสมาชิกทันที</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PDPA Privacy Policy Box -->
+      <div class="pdpa-box mt-6">
+        <div class="pdpa-box-title">
+          <span class="material-symbols-outlined" style="font-size:18px;">verified_user</span>
+          <span>นโยบายข้อมูลส่วนบุคคล (PDPA Notice)</span>
+        </div>
+        <p>
+          เซิร์ฟเวอร์อาจมีการบันทึกและตรวจสอบข้อมูล เช่น Username, Discord User ID, ชื่อเล่น และบันทึกประวัติการใช้งานเบื้องต้น เพื่อความปลอดภัย การดูแลความสงบ และการปรับปรุงฟีเจอร์ภายในกลุ่มเท่านั้น
+        </p>
+      </div>
+
+      <!-- Agreement Footer -->
+      <div class="mt-6 pt-5 border-t border-surface-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-theme-muted">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-emerald-400" style="font-size:16px;">check_circle</span>
+          <span>การยืนยันตัวตนในดิสคอร์ดถือว่าคุณยอมรับกฎระเบียบทั้งหมด</span>
+        </div>
+        <div class="text-right">
+          พบปัญหาหรือแจ้งความไม่เหมาะสม: <span class="text-theme-primary font-medium cursor-pointer hover:underline" onclick="copyContent('barombombie', 'Discord Admin')">DM @barombombie</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="copy-toast">
+    <span class="material-symbols-outlined" style="font-size:18px;color:#10b981">check_circle</span>
+    <span id="toast-text">คัดลอกสำเร็จ</span>
+  </div>
+
+  <!-- Shared JavaScript with Cache Busting v3.4 -->
+  <script src="../script.js?v=3.4"></script>
 </body>
-
 </html>

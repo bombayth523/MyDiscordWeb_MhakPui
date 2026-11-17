@@ -1,0 +1,15 @@
+# Environment variables (ห้าม push ขึ้น Git เด็ดขาด)
+.env
+.env.local
+.env.*.local
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Dependencies & Build Outputs
+node_modules/
+.vercel/
+dist/
+build/
+

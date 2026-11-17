@@ -1,108 +1,301 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" data-theme="dark">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="เว็บไซต์ของกลุ่มหมักปุ๋ย — เซิร์ฟเวอร์ Discord กลุ่มเล็กๆ สำหรับพูดคุย แชร์ และสนุกกันไปด้วยกัน">
-    <title>กลุ่มหมักปุ๋ย | หน้าแรก</title>
-    <link rel="stylesheet" href="style.css?v=2">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="เว็บไซต์ของกลุ่มหมักปุ๋ย — เซิร์ฟเวอร์ Discord สำหรับพูดคุย เล่นเกม และนั่งชิลด้วยกัน">
+  <title>กลุ่มหมักปุ๋ย — Community Discord Hub</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Prompt"', '"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            discord: {
+              DEFAULT: '#5865F2',
+              hover: '#4752C4',
+              active: '#3C45A5',
+              dark: '#232428',
+              card: '#1e1f22',
+            },
+            surface: {
+              base: 'var(--surface-base)',
+              panel: 'var(--surface-panel)',
+              card: 'var(--surface-card)',
+              highlight: 'var(--surface-highlight)',
+              border: 'var(--surface-border)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet with Cache Busting v3.4 -->
+  <link rel="stylesheet" href="style.css?v=3.4">
+
+  <!-- Immediate Theme Initializer (Prevents FOUC) -->
+  <script>
+      (function () {
+        var t = localStorage.getItem('mhakpui-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+  </script>
 </head>
+
 <body>
-    <header>
-        <a href="index.html" class="logo">
-            <img src="img/discordlogo.png" alt="Logo" width="28" height="28">
-            กลุ่มหมักปุ๋ย
-        </a>
-        <nav class="nav-links">
-            <a href="./index.html" class="active">หน้าแรก</a>
-            <a href="./rules/index.html">กฎเซิร์ฟเวอร์</a>
-            <a href="./chatbot/index.html">แชตบอท</a>
-        </nav>
-    </header>
 
-    <main class="main-container">
-        <section class="hero">
-            <h1>เข้ามาหน้านี้ทำไมหรอครับ?</h1>
-            <p>เว็บนี้มันไม่มีอะไรหรอก... แต่ก็ยินดีต้อนรับนะ! 🎉</p>
-        </section>
+  <!-- Top Notification / Announcement Strip (Hidden on Mobile) -->
+  <div class="announce-strip">
+    <div class="announce-content">
+      <div class="flex items-center gap-2">
+        <span class="badge">OFFICIAL</span>
+        <span>พื้นที่รวมตัวพูดคุย เล่นเกม แลกเปลี่ยนมีม และนั่งชิลของกลุ่มหมักปุ๋ย</span>
+      </div>
+      <div class="status-indicator">
+        <span class="dot"></span>
+        <span>เซิร์ฟเวอร์เปิดปกติ</span>
+      </div>
+    </div>
+  </div>
 
-        <div class="content-wrapper">
-            <article class="glass-panel discord-panel">
-                <h3>มาเข้าดิสผมกันมั้ยยย?</h3>
-                <div class="iframeD">
-                    <iframe src="https://discord.com/widget?id=826744229111267338&theme=dark" width="100%" height="420"
-                        allowtransparency="true" frameborder="0"
-                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-                </div>
-                <p style="text-align: center; color: var(--text-muted); font-size: 0.875rem;">จะเข้าก็ได้นะ ถ้าไม่เข้าก็ไม่เป็นไรหรอก...</p>
-            </article>
-
-            <article class="glass-panel links-panel">
-                <h3>เว็บอื่น ๆ เพิ่มเติม</h3>
-                <p class="panel-subtitle">เข้าไปลองเล่นกันได้ หรืออ่านข้อตกลงก่อนเข้าดิส</p>
-
-                <div class="inbox">
-                    <div class="inbox-content">
-                        <img src="img/discordlogo.png" alt="Discord" width="42" height="42">
-                        <div>
-                            <p class="inboxtext">กฎและข้อตกลง</p>
-                            <p style="font-size: 0.8rem; color: var(--text-muted);">เซิร์ฟเวอร์กลุ่มหมักปุ๋ย</p>
-                        </div>
-                    </div>
-                    <a href="./rules/index.html" class="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/></svg>
-                    </a>
-                </div>
-
-                <div class="inbox">
-                    <div class="inbox-content">
-                        <img src="https://avatars.githubusercontent.com/u/8170782?s=200&v=4" alt="chatbot" width="42" height="42">
-                        <div>
-                            <p class="inboxtext">แชตบอท Bombie</p>
-                            <p style="font-size: 0.8rem; color: var(--text-muted);">บอทสุดเอ๋อของกลุ่ม</p>
-                        </div>
-                    </div>
-                    <a href="./chatbot/index.html" class="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/></svg>
-                    </a>
-                </div>
-
-                <p class="section-label">ช่องทางการติดต่อ</p>
-
-                <div class="inbox">
-                    <div class="inbox-content">
-                        <img src="img/discordlogo.png" alt="Discord" width="42" height="42">
-                        <div>
-                            <p class="inboxtext">DM มาที่ <strong>barombombie</strong></p>
-                            <p id="contentToCopy1">barombombie</p>
-                        </div>
-                    </div>
-                    <button id="copyBtn1" class="copy-btn" onclick="copyToClipboard(1)" title="คัดลอก">
-                        <img src="img/copy.png" alt="Copy">
-                    </button>
-                </div>
-
-                <div class="inbox">
-                    <div class="inbox-content">
-                        <img class="email" src="img/email.png" alt="Email" width="42" height="42" style="background: white; padding: 5px; border-radius: 50%;">
-                        <div>
-                            <p class="inboxtext"><strong>inboxbombay@gmail.com</strong></p>
-                            <p id="contentToCopy2">inboxbombay@gmail.com</p>
-                        </div>
-                    </div>
-                    <button id="copyBtn2" class="copy-btn" onclick="copyToClipboard(2)" title="คัดลอก">
-                        <img src="img/copy.png" alt="Copy">
-                    </button>
-                </div>
-            </article>
+  <!-- Primary Header -->
+  <header>
+    <div class="header-container">
+      <!-- Brand Logo -->
+      <a href="index.html" class="logo">
+        <div class="w-8 h-8 rounded-lg bg-discord/20 p-0.5 flex items-center justify-center shrink-0">
+          <img src="img/discordlogo.png" alt="Discord" class="w-6 h-6 object-contain">
         </div>
-    </main>
+        <span>กลุ่มหมักปุ๋ย</span>
+      </a>
 
-    <footer>
-        &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
-    </footer>
+      <!-- Navigation Links -->
+      <nav class="nav-links">
+        <a href="./index.html" class="active">หน้าแรก</a>
+        <a href="./rules/index.html">กฎเซิร์ฟเวอร์</a>
+        <a href="./chatbot/index.html">แชตบอท</a>
+        <a href="./contact/index.html">ติดต่อ</a>
+      </nav>
 
-    <script src="script.js?v=2"></script>
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="สลับธีม">
+          <span class="material-symbols-outlined">light_mode</span>
+        </button>
+        <a href="https://discord.gg/zXkMQqmtnw" target="_blank" rel="noopener" class="btn-discord">
+          <span class="material-symbols-outlined">login</span>
+          <span>เข้า Discord ทันที</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Hero Welcome Banner -->
+    <section class="hero-banner">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+
+      <div class="relative z-10">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>ยินดีต้อนรับสู่พื้นที่สบายๆ ของเรา</span>
+        </div>
+        <h1 class="hero-title">
+          เข้ามาหน้านี้ทำไมหรอครับ? แต่ยินดีต้อนรับนะ!
+        </h1>
+        <p class="hero-desc">
+          เว็บนี้อาจจะไม่มีอะไรซับซ้อน แต่สร้างขึ้นเพื่อให้ทุกคนสามารถเช็กสถานะกลุ่มหมักปุ๋ย อ่านข้อตกลง เข้าดิสคอร์ด
+          หรือแวะมาคุยเล่นกับแอดมินได้ง่ายที่สุด
+        </p>
+
+        <div class="hero-actions">
+          <button type="button"
+            onclick="document.getElementById('discord-widget-card').scrollIntoView({behavior: 'smooth'})"
+            class="btn-hero-primary">
+            <span class="material-symbols-outlined">visibility</span>
+            <span>ดูสมาชิกที่ออนไลน์</span>
+          </button>
+          <a href="./rules/index.html" class="btn-hero-secondary">
+            <span class="material-symbols-outlined">menu_book</span>
+            <span>อ่านระเบียบชุมชน</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two-Column Grid: Live Discord Widget & Quick Links -->
+    <div class="content-grid">
+
+      <!-- Left Column: Discord Live Widget Card -->
+      <div id="discord-widget-card" class="card">
+        <div class="card-header-row">
+          <div class="card-header-title">
+            <div class="card-icon-box">
+              <span class="material-symbols-outlined" style="font-size:20px;">forum</span>
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-theme-primary">Discord Live Widget</h2>
+              <p class="text-xs text-theme-muted">สถานะสมาชิกปัจจุบันในกลุ่มหมักปุ๋ย</p>
+            </div>
+          </div>
+          <span class="card-tag-mono">ID: 826744229111267338</span>
+        </div>
+
+        <!-- The Real Discord Widget Iframe -->
+        <div class="discord-widget-wrap">
+          <iframe src="https://discord.com/widget?id=826744229111267338&theme=dark" height="380"
+            allowtransparency="true" frameborder="0"
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+          </iframe>
+        </div>
+
+        <div class="widget-footer">
+          <p class="italic text-theme-muted">"จะเข้าก็ได้นะ ถ้าไม่เข้าก็ไม่เป็นไรหรอก..."</p>
+          <span class="status">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Widget Connected
+          </span>
+        </div>
+      </div>
+
+      <!-- Right Column: Navigation & Quick Contact -->
+      <div class="flex flex-col gap-5">
+
+        <!-- Quick Navigation Hub -->
+        <div class="card">
+          <div class="section-subhead">
+            <h3>เมนูแนะนำ &amp; บริการ</h3>
+            <span>Quick Links</span>
+          </div>
+
+          <!-- Link to Rules -->
+          <a href="./rules/index.html" class="nav-hub-item">
+            <div class="nav-hub-left">
+              <div class="icon-badge-box indigo">
+                <span class="material-symbols-outlined" style="font-size:18px;">verified_user</span>
+              </div>
+              <div>
+                <h4>กฎและข้อตกลง</h4>
+                <p>ระเบียบเซิร์ฟเวอร์ &amp; ข้อควรรู้ก่อนเข้ากลุ่ม</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined chevron">chevron_right</span>
+          </a>
+
+          <!-- Link to Chatbot -->
+          <a href="./chatbot/index.html" class="nav-hub-item">
+            <div class="nav-hub-left">
+              <div class="icon-badge-box amber">
+                <span class="material-symbols-outlined" style="font-size:18px;">smart_toy</span>
+              </div>
+              <div>
+                <h4>แชตบอท Bombie</h4>
+                <p>บอทผู้ช่วยตอบคำถามประจำกลุ่ม (Dialogflow)</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined chevron">chevron_right</span>
+          </a>
+        </div>
+
+        <!-- One-Click Direct Contact Section -->
+        <div class="card">
+          <div class="section-subhead">
+            <h3>ช่องทางการติดต่อ</h3>
+            <span>คลิกเพื่อคัดลอกทันที</span>
+          </div>
+
+          <!-- Discord Username Copy Card -->
+          <div class="contact-copy-item">
+            <div class="contact-copy-left">
+              <div class="icon-badge-box" style="background:rgba(88,101,242,0.15);color:var(--discord)">
+                <img src="img/discordlogo.png" alt="Discord" class="w-5 h-5 object-contain">
+              </div>
+              <div class="contact-copy-info">
+                <div class="label">Discord Username</div>
+                <div class="val" id="text-discord-user">barombombie</div>
+                <span id="contentToCopy1">barombombie</span>
+              </div>
+            </div>
+            <button type="button" onclick="copyToClipboard(1)" class="btn-copy-chip" title="คัดลอก Username">
+              <span class="material-symbols-outlined">content_copy</span>
+              <span>คัดลอก</span>
+            </button>
+          </div>
+
+          <!-- Email Copy Card -->
+          <div class="contact-copy-item">
+            <div class="contact-copy-left">
+              <div class="icon-badge-box rose">
+                <span class="material-symbols-outlined" style="font-size:18px;">mail</span>
+              </div>
+              <div class="contact-copy-info">
+                <div class="label">อีเมลติดต่อ</div>
+                <div class="val" id="text-email">inboxbombay@gmail.com</div>
+                <span id="contentToCopy2">inboxbombay@gmail.com</span>
+              </div>
+            </div>
+            <button type="button" onclick="copyToClipboard(2)" class="btn-copy-chip" title="คัดลอกอีเมล">
+              <span class="material-symbols-outlined">content_copy</span>
+              <span>คัดลอก</span>
+            </button>
+          </div>
+
+          <!-- Community Vibe / Server Traits -->
+          <div class="community-vibe-box mt-2">
+            <div class="vibe-title">
+              <span class="material-symbols-outlined text-amber-400" style="font-size:16px;">sentiment_satisfied</span>
+              <span>เกี่ยวกับคอมมูนิตี้นี้</span>
+            </div>
+            <p>
+              เซิร์ฟเวอร์เล็กๆ เน้นเป็นกันเอง ไม่เครียด ไม่เรื่องมาก มีทั้งคนเล่นเกม พูดคุยเรื่องทั่วไป
+              หรือมานั่งเปิดไมค์ทำงานด้วยกัน
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="copy-toast">
+    <span class="material-symbols-outlined" style="font-size:18px;color:#10b981">check_circle</span>
+    <span id="toast-text">คัดลอกสำเร็จ</span>
+  </div>
+
+  <!-- Shared JavaScript with Cache Busting v3.4 -->
+  <script src="script.js?v=3.4"></script>
 </body>
+
 </html>
