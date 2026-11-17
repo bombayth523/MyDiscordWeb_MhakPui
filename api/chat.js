@@ -11,7 +11,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { message } = req.body || {};
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch (e) {
+        body = {};
+      }
+    }
+    const { message } = body || {};
     if (!message || typeof message !== 'string' || message.trim() === '') {
       return res.status(400).json({ error: 'Message is required' });
     }
