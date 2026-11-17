@@ -121,8 +121,19 @@ function showToast(message) {
 (function () {
   const DF_AGENT_ID = '10e38222-0dfa-4b1e-a697-e959528cf96d';
   const STORAGE_SESSION_KEY = 'mhakpui_bombie_session';
+  const STORAGE_MEMORY_KEY = 'mhakpui_bombie_memory';
+  const STORAGE_CHAT_LOG_KEY = 'mhakpui_bombie_chat_log';
   const AVATAR_BOT = 'https://avatars.githubusercontent.com/u/8170782?s=200&v=4';
   const AVATAR_USER = '../img/discordlogo.png';
+
+  let chatDisplayLog = [];
+
+  function saveSessionState() {
+    try {
+      sessionStorage.setItem(STORAGE_MEMORY_KEY, JSON.stringify(conversationHistory));
+      sessionStorage.setItem(STORAGE_CHAT_LOG_KEY, JSON.stringify(chatDisplayLog));
+    } catch (e) {}
+  }
 
   function getSessionId() {
     let sid = localStorage.getItem(STORAGE_SESSION_KEY);
@@ -165,7 +176,7 @@ function showToast(message) {
     }
   };
 
-  window.appendNativeChatMessage = function (role, text) {
+  window.appendNativeChatMessage = function (role, text, customTime, skipSave) {
     const feed = document.getElementById('chat-messages-feed');
     if (!feed) return;
 
@@ -177,7 +188,7 @@ function showToast(message) {
     const authorName = isBot ? 'Bombie' : 'คุณ';
     const tagHtml = isBot ? '<span class="chat-tag-bot">BOT</span>' : '';
     const bubbleClass = isBot ? 'chat-bubble-bot' : 'chat-bubble-user';
-    const timeStr = formatCurrentTime();
+    const timeStr = customTime || formatCurrentTime();
 
     // จัดการข้อความ line breaks
     const safeText = escapeHtml(text).replace(/\n/g, '<br>');
@@ -199,6 +210,14 @@ function showToast(message) {
 
     feed.appendChild(row);
     scrollToBottom();
+
+    if (!skipSave) {
+      chatDisplayLog.push({ role: role, text: text, time: timeStr });
+      if (chatDisplayLog.length > 40) {
+        chatDisplayLog = chatDisplayLog.slice(-40);
+      }
+      saveSessionState();
+    }
   };
 
   // รายชื่อ Intents ข้อมูลเซิร์ฟเวอร์กลุ่มหมักปุ๋ยที่ให้ Dialogflow ตอบโดยตรง
@@ -223,6 +242,14 @@ function showToast(message) {
     'ฝันดี'
   ]);
 
+  // คำที่ควรส่งตรงไปหา Gemini เพื่อใช้ข้อมูลสด Discord Live Radar และ Lore เชิงลึก
+  const DEEP_AI_KEYWORDS = [
+    'ตอนนี้', 'ออนไลน์', 'ออนอยู่', 'กี่คน',
+    'dyno', 'ไดโน', 'manybaht', 'pekky', 'rythm', 'บอทเพลง', 'บอทเปิดเพลง',
+    'ห้องนั่งเล่น', 'ริมสวน', 'หลังบ้าน', 'ห้องน้ำ', 'ห้องนอน', 'ห้องเสียง', 'มีห้อง',
+    'ceo', 'ซีอีโอ', 'ผู้ก่อตั้ง', 'ดราม่า', 'ทะเลาะ', 'ตำนาน'
+  ];
+
   // ระบบตรวจสอบว่าคำถามควรส่งไปหา Gemini หรือไม่ (Smart Intent Router)
   function shouldRouteToGemini(userText, queryResult) {
     if (!queryResult) return true;
@@ -230,6 +257,12 @@ function showToast(message) {
     const intentName = queryResult.intent?.displayName || '';
     const confidence = Number(queryResult.intentDetectionConfidence) || 0;
     const text = userText.trim();
+    const lowerText = text.toLowerCase();
+
+    // 0. ถ้าเป็นคำถามขอสถานะสดจาก Discord หรือ Lore เชิงลึก ให้ส่ง Gemini + Discord Live Radar ตอบ
+    if (DEEP_AI_KEYWORDS.some(function (kw) { return lowerText.includes(kw); })) {
+      return true;
+    }
 
     // 1. ถ้าเป็น Fallback Intent ตรงๆ หรือความมั่นใจต่ำกว่า 65%
     if (intentName === 'Default fallback intent' || queryResult.isFallback || confidence < 0.65) {
@@ -255,7 +288,7 @@ function showToast(message) {
     return false;
   }
 
-  // ความจำระยะสั้นของบอท (เก็บประวัติการคุยสูงสุด 16 ข้อความล่าสุด / 8 รอบ)
+  // ความจำระยะสั้นของบอท (เก็บประวัติการคุยสูงสุด 16 ข้อความล่าสุด / 8 รอบ + จำข้ามหน้าใน sessionStorage)
   let conversationHistory = [];
 
   function recordChatMemory(role, text) {
@@ -267,6 +300,40 @@ function showToast(message) {
     if (conversationHistory.length > 16) {
       conversationHistory = conversationHistory.slice(-16);
     }
+    saveSessionState();
+  }
+
+  function restoreChatSession() {
+    const feed = document.getElementById('chat-messages-feed');
+    if (!feed) return;
+    try {
+      const savedMem = sessionStorage.getItem(STORAGE_MEMORY_KEY);
+      if (savedMem) {
+        const parsedMem = JSON.parse(savedMem);
+        if (Array.isArray(parsedMem)) {
+          conversationHistory = parsedMem.slice(-16);
+        }
+      }
+      const savedLog = sessionStorage.getItem(STORAGE_CHAT_LOG_KEY);
+      if (savedLog) {
+        const parsedLog = JSON.parse(savedLog);
+        if (Array.isArray(parsedLog) && parsedLog.length > 0) {
+          chatDisplayLog = parsedLog.slice(-40);
+          for (let i = 0; i < chatDisplayLog.length; i++) {
+            const m = chatDisplayLog[i];
+            if (m && m.role && m.text) {
+              appendNativeChatMessage(m.role, m.text, m.time, true);
+            }
+          }
+        }
+      }
+    } catch (e) {}
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', restoreChatSession);
+  } else {
+    restoreChatSession();
   }
 
   function buildGeminiContents(history, currentUserText) {
@@ -342,23 +409,16 @@ function showToast(message) {
               body: JSON.stringify({
                 systemInstruction: {
                   parts: [{
-                    text: 'คุณคือ Bombie (บอมบี้) บอทผู้ช่วยประจำเซิร์ฟเวอร์ Discord "กลุ่มหมักปุ๋ย"\n' +
-                          'บุคลิกและสไตล์การพูด:\n' +
-                          '- ชิวๆ กวนๆ เป็นกันเอง สุภาพปนกวนตีนนิดๆ\n' +
-                          '- มักพูดลงท้ายด้วย "ครับพี่", "ครับผม", "น้า"\n' +
-                          '- ห้ามตอบเป็นทางการเหมือนหุ่นยนต์ ให้ตอบเหมือนเพื่อนคุยในกลุ่ม Discord\n' +
-                          '- ตอบสั้น กระชับ 1-3 ประโยค\n' +
-                          'ข้อมูลและ Lore ของกลุ่มหมักปุ๋ย:\n' +
-                          '1. ที่มาชื่อกลุ่ม: เกิดจากการโหวตกันในกลุ่ม ฟีลเหมือนเอาวัตถุดิบ เศษขยะ หรือสิ่งปฏิกูลมารวมกันหมักหมมไว้ นานวันเข้าดันกลายเป็นปุ๋ยที่มีประโยชน์เฉยเลย\n' +
-                          '2. แอดมิน: ชื่อ Barombombie (ยศ CEO ผู้รับจบทุกงานในเซิร์ฟเวอร์)\n' +
-                          '3. สมาชิก: เรียกว่า "ท่านสมาชิกทั้งหลาย"\n' +
-                          '4. สภาพเซิร์ฟเวอร์: เมื่อก่อนคุยทั้งวันทั้งคืน แต่ตอนนี้ "ร้างแล้วครับ 555" พยายามชวนคนเข้ามากู้ชีพเซิร์ฟ\n' +
-                          '5. ลิงก์ Discord: https://discord.gg/zXkMQqmtnw\n' +
-                          '6. กฎหลัก 7 ข้อ: ไม่ Toxic, ไม่สแปม, ให้เกียรติกัน, ห้าม 18+ หรือผิดกฎหมาย'
+                    text: 'คุณคือ "Bombie" (บอมบี้ / Barom) แชตบอทชายแทร่ประจำเซิร์ฟเวอร์ Discord "กลุ่มหมักปุ๋ย"\n' +
+                          'โทนการพูด (Adaptive Tone): ถ้าผู้ใช้คุยสุภาพ ให้กวนน่ารักพูด "ครับพี่/ครับผม/ท่านสมาชิก" แต่ถ้าผู้ใช้คุยแบบเพื่อนหรือเริ่มกวนตีน/หยาบ ให้ลดความสุภาพลงเป็นโหมดเพื่อนในดิส กวนตีนขึ้น ประชดนิดๆ น่าหมั่นเขี้ยว แต่ไม่หยาบรุนแรง ตอบสั้น 1-3 ประโยค\n' +
+                          'Lore กลุ่มหมักปุ๋ย: โหวตชื่อกันเองฟีลเอาขยะ/สิ่งปฏิกูลมาหมักจนเป็นปุ๋ยที่มีประโยชน์, ห้องในดิสแบ่งฟีลบ้านอบอุ่น (ห้องนั่งเล่น, ห้องริมสวน, ห้องหลังบ้าน, ห้องน้ำ, ห้องนอน), เปิดมาหลายปีเคยคึกคักและมีดราม่าด่ากันแต่ก็คุยกันได้ปกติ ตอนนี้ร้างจัดๆ ร้อยวันพันปีเจอคนที\n' +
+                          'CEO & บอท: มี CEO 3 คนแต่อีก 2 คนไม่ทำไร มีแค่ CEO ผู้ก่อตั้ง Barombombie แบกทุกอย่าง (เว็บ/บอท/ระบบ), บอท Dyno คือเลขาประจำดิสและมือขวา, บอทเปิดเพลง (Manybaht, Pekky, Rythm) นานๆ มีคนใช้ทีถ้าใครใช้คงดีใจ\n' +
+                          'คำติดปาก: "ของแทร่", "อะหยอก", "รับจบ", "กินไฟกินเน็ต", "ดูธรรมะธัมโมบ้างสี๊", "ไม่มีใครดีเท่าแม่คุณแล้วครับ", "ทำไรก็ได้ครับ ไม่ได้ขอตังค์ใคร"\n' +
+                          'ลิงก์ Discord: https://discord.gg/zXkMQqmtnw | กฎ 7 ข้อไม่ Toxic ไม่สแปม ไม่ 18+'
                   }]
                 },
                 contents: buildGeminiContents(history, userText),
-                generationConfig: { temperature: 0.8, maxOutputTokens: 350 }
+                generationConfig: { temperature: 0.85, maxOutputTokens: 600 }
               })
             }
           );
@@ -559,7 +619,12 @@ function showToast(message) {
 
   window.clearChatHistory = function () {
     conversationHistory = [];
+    chatDisplayLog = [];
     localStorage.removeItem(STORAGE_SESSION_KEY);
+    try {
+      sessionStorage.removeItem(STORAGE_MEMORY_KEY);
+      sessionStorage.removeItem(STORAGE_CHAT_LOG_KEY);
+    } catch (e) {}
     const feed = document.getElementById('chat-messages-feed');
     if (!feed) return;
     feed.innerHTML =

@@ -1,8 +1,48 @@
 // ============================================================
 // กลุ่มหมักปุ๋ย — Bombie AI Hybrid Fallback API (Vercel Serverless)
-// ด่านที่ 2: เรียกใช้ Google Gemini 1.5 Flash (Free Tier)
-// เมื่อ Dialogflow ไม่เข้าใจคำถาม
+// ด่านที่ 2: เรียกใช้ Google Gemini Flash (Free Tier)
+// พร้อม Multi-turn Memory + Few-Shot Lorebook + Discord Live Radar
 // ============================================================
+
+import { buildBombieSystemPrompt } from './bombie-knowledge.js';
+
+const DISCORD_WIDGET_URL = 'https://discord.com/api/guilds/826744229111267338/widget.json';
+const CACHE_TTL_MS = 60 * 1000; // แคชข้อมูล Discord สด 60 วินาที
+
+let discordCache = {
+  data: null,
+  fetchedAt: 0
+};
+
+async function getDiscordLiveStatus() {
+  const now = Date.now();
+  if (discordCache.data && (now - discordCache.fetchedAt) < CACHE_TTL_MS) {
+    return discordCache.data;
+  }
+
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 2500);
+    const res = await fetch(DISCORD_WIDGET_URL, { signal: controller.signal });
+    clearTimeout(timer);
+
+    if (!res.ok) return discordCache.data;
+
+    const json = await res.json();
+    const members = Array.isArray(json.members) ? json.members : [];
+    const parsed = {
+      guildName: json.name || 'กลุ่มหมักปุ๋ย',
+      onlineCount: typeof json.presence_count === 'number' ? json.presence_count : members.length,
+      memberNames: members.slice(0, 20).map(m => m.username).filter(Boolean)
+    };
+
+    discordCache = { data: parsed, fetchedAt: now };
+    return parsed;
+  } catch (err) {
+    // ถ้า Discord Widget ตอบช้าหรือเชื่อมต่อไม่ได้ ให้ใช้แคชเดิมหรือข้ามไปอย่างปลอดภัย
+    return discordCache.data;
+  }
+}
 
 export default async function handler(req, res) {
   // รับเฉพาะ POST request
@@ -19,6 +59,7 @@ export default async function handler(req, res) {
         body = {};
       }
     }
+
     const { message, history } = body || {};
     if (!message || typeof message !== 'string' || message.trim() === '') {
       return res.status(400).json({ error: 'Message is required' });
@@ -26,7 +67,7 @@ export default async function handler(req, res) {
 
     const cleanMessage = message.trim().slice(0, 800);
 
-    // ประกอบประวัติการสนทนา (Memory) เพื่อให้บอทจำบริบทต่อเนื่องได้ (จำสูงสุด 16 ข้อความล่าสุด / 8 รอบ)
+    // ประกอบประวัติการสนทนา (Memory) เพื่อให้บอทจำบริบทต่อเนื่องได้ (สูงสุด 16 ข้อความล่าสุด / 8 รอบ)
     const contents = [];
     if (Array.isArray(history)) {
       const recentHistory = history.slice(-16);
@@ -57,7 +98,6 @@ export default async function handler(req, res) {
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      // ถ้ายังไม่ได้ตั้งค่า API Key ให้แจ้งฝั่ง Client เพื่อใช้ Fallback ปกติ
       return res.status(200).json({
         available: false,
         reason: 'GEMINI_API_KEY is not configured',
@@ -65,26 +105,9 @@ export default async function handler(req, res) {
       });
     }
 
-    // System Prompt ควบคุมคาแรคเตอร์ Bombie และ Lore ของกลุ่มหมักปุ๋ย
-    const systemPrompt = `คุณคือ Bombie (บอมบี้) บอทผู้ช่วยประจำเซิร์ฟเวอร์ Discord "กลุ่มหมักปุ๋ย"
-บุคลิกและสไตล์การพูด:
-- ชิวๆ กวนๆ เป็นกันเอง สุภาพปนกวนตีนนิดๆ
-- มักพูดลงท้ายด้วย "ครับพี่", "ครับผม", "น้า"
-- ห้ามตอบเป็นทางการเหมือนหุ่นยนต์คอลเซ็นเตอร์ ให้ตอบเหมือนเพื่อนคุยในกลุ่ม Discord
-- ตอบสั้น กระชับ 1-3 ประโยค (ไม่ตอบยาวเกินไป)
-
-ข้อมูลและ Lore ของกลุ่มหมักปุ๋ย:
-1. ที่มาชื่อกลุ่ม: เกิดจากการโหวตกันในกลุ่ม ฟีลเหมือนเอาวัตถุดิบ เศษขยะ หรือสิ่งปฏิกูลมารวมกันหมักหมมไว้ นานวันเข้าดันกลายเป็นปุ๋ยที่มีประโยชน์เฉยเลย
-2. แอดมิน: ชื่อ Barombombie (ยศ CEO ผู้รับจบทุกงานในเซิร์ฟเวอร์)
-3. สมาชิก: เรียกว่า "ท่านสมาชิกทั้งหลาย"
-4. สภาพเซิร์ฟเวอร์: เมื่อก่อนคุยทั้งวันทั้งคืน แต่ตอนนี้ "ร้างแล้วครับ 555" พยายามชวนคนเข้ามากู้ชีพเซิร์ฟ
-5. ลิงก์ Discord: https://discord.gg/zXkMQqmtnw
-6. กฎหลัก 7 ข้อ: ไม่ Toxic, ไม่สแปม, ให้เกียรติกัน, ห้าม 18+ หรือผิดกฎหมาย
-
-ข้อปฏิบัติเมื่อตอบคำถาม:
-- ถ้าเป็นคำถามกวนๆ ให้ตอบกวนกลับแบบน่ารัก ไม่หยาบคายรุนแรง
-- ถ้าเป็นคำถามที่เกี่ยวกับกลุ่มหมักปุ๋ย ให้อิงจากข้อมูลข้างต้น
-- ถ้าถามเรื่องที่ไม่รู้จริงๆ ให้ตอบตามสไตล์บอมบี้ว่ายังเอ๋ออยู่ หรือแซวแอดมิน Barombombie`;
+    // ดึงข้อมูลสดจาก Discord Live Radar แล้วสร้าง System Prompt
+    const liveDiscordInfo = await getDiscordLiveStatus();
+    const systemPrompt = buildBombieSystemPrompt(liveDiscordInfo);
 
     // เรียก Google Gemini Flash Latest Endpoint (รองรับ System Instruction และ Free Tier)
     const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`;
@@ -100,8 +123,8 @@ export default async function handler(req, res) {
         },
         contents: contents,
         generationConfig: {
-          temperature: 0.8,
-          maxOutputTokens: 350,
+          temperature: 0.85,
+          maxOutputTokens: 600,
           topP: 0.95
         }
       })
@@ -132,6 +155,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       available: true,
       source: 'gemini-flash-lite-latest',
+      liveOnline: liveDiscordInfo ? liveDiscordInfo.onlineCount : null,
       reply: replyText
     });
 
@@ -140,4 +164,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
-

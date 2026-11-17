@@ -33,11 +33,13 @@ MyDiscordWeb_MhakPui/
 ├── contact/
 │   └── index.html      # หน้าติดต่อแอดมิน: การ์ด Discord DM และอีเมล พร้อมข้อมูลการตอบกลับ
 ├── api/
-│   └── chat.js         # Hybrid Fallback API: เชื่อมต่อ Google Gemini 1.5 Flash (Free Tier)
-├── .env.example        # ตัวอย่างไฟล์ Environment สำหรับเก็บ GEMINI_API_KEY แบบปลอดภัย
-├── vercel.json         # การตั้งค่าสำหรับ Deploy บน Vercel ฟรี 100%
-├── style.css           # สไตล์ชีตหลัก (Pure CSS + CSS Custom Properties รองรับ Dark/Light/Responsive)
-├── script.js           # สคริปต์รวม: Theme Toggle, Clipboard Copy, Native Discord Chat, Hybrid Fallback
+│   ├── chat.js             # Hybrid Fallback API: เชื่อมต่อ Google Gemini Flash + Multi-turn Memory + Discord Live Radar
+│   └── bombie-knowledge.js # คลังสมอง Lorebook, Few-Shot DNA จาก Intents เดิม และ Adaptive Tone Engine
+├── .env.example            # ตัวอย่างไฟล์ Environment สำหรับเก็บ GEMINI_API_KEY แบบปลอดภัย
+├── vercel.json             # การตั้งค่าสำหรับ Deploy บน Vercel ฟรี 100%
+├── dev-server.mjs          # Local Node.js Dev Server สำหรับทดสอบในเครื่อง (รองรับ /api/chat)
+├── style.css               # สไตล์ชีตหลัก (Pure CSS + CSS Custom Properties รองรับ Dark/Light/Responsive + Chat Fullscreen)
+├── script.js               # สคริปต์รวม: Theme Toggle, Native Discord Chat, Session Persistence, Smart Hybrid Router
 └── img/                # ไฟล์รูปภาพและไอคอนประจำโปรเจกต์
     ├── discordlogo.png
     ├── email.png
