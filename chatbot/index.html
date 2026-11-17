@@ -46,8 +46,8 @@
     }
   </script>
 
-  <!-- Custom Stylesheet with Cache Busting v3.4 -->
-  <link rel="stylesheet" href="../style.css?v=3.4">
+  <!-- Custom Stylesheet with Cache Busting v3.6 -->
+  <link rel="stylesheet" href="../style.css?v=3.6">
 
   <!-- Immediate Theme Initializer -->
   <script>
@@ -227,14 +227,20 @@
               </div>
               <div class="flex items-center gap-1.5">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="text-[11px] text-theme-muted">ออนไลน์ • เชื่อมต่อ Dialogflow</span>
+                <span class="text-[11px] text-theme-muted">ออนไลน์ • Hybrid AI</span>
               </div>
             </div>
           </div>
-          <button type="button" onclick="clearChatHistory()" class="btn-copy-chip text-[11px]" title="เริ่มคุยใหม่">
-            <span class="material-symbols-outlined text-[15px]">restart_alt</span>
-            <span>เริ่มใหม่</span>
-          </button>
+          <div class="flex items-center gap-1.5">
+            <button type="button" id="chat-expand-btn" onclick="toggleChatExpand()" class="btn-copy-chip text-[11px]" title="ขยายหน้าต่างแชต" aria-label="ขยายหน้าต่างแชต">
+              <span class="material-symbols-outlined text-[15px]" id="chat-expand-icon">open_in_full</span>
+              <span class="hidden sm:inline" id="chat-expand-label">ขยาย</span>
+            </button>
+            <button type="button" onclick="clearChatHistory()" class="btn-copy-chip text-[11px]" title="เริ่มคุยใหม่" aria-label="เริ่มคุยใหม่">
+              <span class="material-symbols-outlined text-[15px]">restart_alt</span>
+              <span class="hidden sm:inline">เริ่มใหม่</span>
+            </button>
+          </div>
         </div>
 
         <!-- Chat Messages Feed -->
@@ -297,14 +303,17 @@
     &copy; 2026 กลุ่มหมักปุ๋ย &nbsp;·&nbsp; All rights reserved.
   </footer>
 
+  <!-- Backdrop Overlay for Expanded Chat -->
+  <div id="chat-backdrop" class="chat-backdrop" onclick="toggleChatExpand(false)" aria-hidden="true"></div>
+
   <!-- Toast Notification Container -->
   <div id="copy-toast">
     <span class="material-symbols-outlined" style="font-size:18px;color:#10b981">check_circle</span>
     <span id="toast-text">คัดลอกสำเร็จ</span>
   </div>
 
-  <!-- Shared JavaScript with Cache Busting v3.5 -->
-  <script src="../script.js?v=3.5"></script>
+  <!-- Shared JavaScript with Cache Busting v3.6 -->
+  <script src="../script.js?v=3.6"></script>
 </body>
 
 </html>

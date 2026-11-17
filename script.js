@@ -255,19 +255,59 @@ function showToast(message) {
     return false;
   }
 
-  // ฟังก์ชันเรียก Gemini AI (รองรับทั้ง Vercel Serverless / Local Node Server / Localhost Preview)
-  async function callGeminiFallback(userText) {
+  // ความจำระยะสั้นของบอท (เก็บประวัติการคุยสูงสุด 16 ข้อความล่าสุด / 8 รอบ)
+  let conversationHistory = [];
+
+  function recordChatMemory(role, text) {
+    if (!text || typeof text !== 'string') return;
+    conversationHistory.push({
+      role: role === 'model' ? 'model' : 'user',
+      text: text.trim()
+    });
+    if (conversationHistory.length > 16) {
+      conversationHistory = conversationHistory.slice(-16);
+    }
+  }
+
+  function buildGeminiContents(history, currentUserText) {
+    const contents = [];
+    if (Array.isArray(history)) {
+      for (let i = 0; i < history.length; i++) {
+        const item = history[i];
+        if (!item || !item.text) continue;
+        const role = item.role === 'model' ? 'model' : 'user';
+        if (contents.length === 0 && role !== 'user') continue;
+        if (contents.length > 0 && contents[contents.length - 1].role === role) {
+          contents[contents.length - 1].parts[0].text += '\n' + item.text;
+        } else {
+          contents.push({ role: role, parts: [{ text: item.text }] });
+        }
+      }
+    }
+    if (contents.length > 0 && contents[contents.length - 1].role === 'user') {
+      contents[contents.length - 1].parts[0].text += '\n' + currentUserText;
+    } else {
+      contents.push({ role: 'user', parts: [{ text: currentUserText }] });
+    }
+    return contents;
+  }
+
+  // ฟังก์ชันเรียก Gemini AI (รองรับทั้ง Vercel Serverless / Local Node Server / Localhost Preview + จำบริบท)
+  async function callGeminiFallback(userText, history) {
     // 1. ลองเรียก /api/chat ก่อนเสมอ (สำหรับ Production บน Vercel หรือ local dev server)
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userText })
+        body: JSON.stringify({
+          message: userText,
+          history: history || []
+        })
       });
       if (res.ok) {
         const data = await res.json();
         if (data && data.available && data.reply) {
-          console.log('%c[Bombie Brain]%c 🚀 ตอบด้วย Gemini 1.5 Flash (via /api/chat)', 'color:#5865F2;font-weight:bold;', 'color:#10b981;');
+          console.log('%c[Bombie Brain]%c 🚀 ตอบด้วย Gemini Flash (via /api/chat | จำ ' + (history ? history.length : 0) + ' ข้อความ)', 'color:#5865F2;font-weight:bold;', 'color:#10b981;');
           return { success: true, reply: data.reply };
         }
       }
@@ -317,8 +357,8 @@ function showToast(message) {
                           '6. กฎหลัก 7 ข้อ: ไม่ Toxic, ไม่สแปม, ให้เกียรติกัน, ห้าม 18+ หรือผิดกฎหมาย'
                   }]
                 },
-                contents: [{ role: 'user', parts: [{ text: userText }] }],
-                generationConfig: { temperature: 0.8, maxOutputTokens: 200 }
+                contents: buildGeminiContents(history, userText),
+                generationConfig: { temperature: 0.8, maxOutputTokens: 350 }
               })
             }
           );
@@ -327,7 +367,7 @@ function showToast(message) {
             const directData = await directRes.json();
             const rep = directData.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
             if (rep) {
-              console.log('%c[Bombie Brain]%c 🚀 ตอบด้วย Gemini 1.5 Flash (Direct Local API)', 'color:#5865F2;font-weight:bold;', 'color:#10b981;');
+              console.log('%c[Bombie Brain]%c 🚀 ตอบด้วย Gemini Flash (Direct Local API | จำ ' + (history ? history.length : 0) + ' ข้อความ)', 'color:#5865F2;font-weight:bold;', 'color:#10b981;');
               return { success: true, reply: rep };
             }
           }
@@ -352,8 +392,12 @@ function showToast(message) {
     if (input) input.value = '';
     if (sendBtn) sendBtn.disabled = true;
 
-    // 1. แสดงกล่องข้อความของผู้ใช้
+    // เก็บประวัติก่อนหน้าไว้ส่งให้ Gemini จำบริบท
+    const historySnapshot = conversationHistory.slice();
+
+    // 1. แสดงกล่องข้อความของผู้ใช้และบันทึกลงความจำ
     appendNativeChatMessage('user', text);
+    recordChatMemory('user', text);
 
     // 2. แสดงสถานะ Bombie กำลังพิมพ์
     showNativeChatTyping(true);
@@ -410,9 +454,9 @@ function showToast(message) {
         shouldCallAI = true;
       }
 
-      // ด่านที่ 2: ถ้าเข้าเงื่อนไขส่งต่อ ให้เรียกใช้สมอง Gemini AI
+      // ด่านที่ 2: ถ้าเข้าเงื่อนไขส่งต่อ ให้เรียกใช้สมอง Gemini AI พร้อมประวัติการคุย
       if (shouldCallAI || !botReply || botReply.trim() === '') {
-        const aiResult = await callGeminiFallback(text);
+        const aiResult = await callGeminiFallback(text, historySnapshot);
         if (aiResult && aiResult.success && aiResult.reply) {
           botReply = aiResult.reply;
         }
@@ -425,15 +469,17 @@ function showToast(message) {
       }
 
       appendNativeChatMessage('bot', botReply);
+      recordChatMemory('model', botReply);
 
     } catch (err) {
       console.warn('Dialogflow chat request error:', err);
       // ลองถาม Gemini AI ดูก่อนถ้า Dialogflow ล่ม
-      const aiResult = await callGeminiFallback(text);
+      const aiResult = await callGeminiFallback(text, historySnapshot);
       showNativeChatTyping(false);
 
       if (aiResult && aiResult.success && aiResult.reply) {
         appendNativeChatMessage('bot', aiResult.reply);
+        recordChatMemory('model', aiResult.reply);
       } else {
         appendNativeChatMessage('bot', 'ขออภัยครับ ตอนนี้สัญญาณเน็ตหรือเซิร์ฟเวอร์ Dialogflow ตอบกลับช้า ลองพิมพ์ใหม่อีกครั้งนะครับ');
       }
@@ -453,15 +499,67 @@ function showToast(message) {
 
   window.promptToBot = function (text) {
     if (!text) return;
-    // เลื่อนลงไปที่กล่องแชตถ้าจำเป็น
+    // เลื่อนลงไปที่กล่องแชตถ้าจำเป็น (เมื่อไม่ได้อยู่ในโหมดขยายเต็มจอ)
     const chatCard = document.getElementById('live-chat-card');
-    if (chatCard && window.innerWidth <= 768) {
+    if (chatCard && !chatCard.classList.contains('is-expanded') && window.innerWidth <= 768) {
       chatCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     sendNativeChatMessage(text);
   };
 
+  // โหมดขยายหน้าต่างแชตแบบ Overlay (Desktop) / เต็มจอ 100% (Mobile)
+  window.toggleChatExpand = function (forceState) {
+    const chatCard = document.getElementById('live-chat-card');
+    const backdrop = document.getElementById('chat-backdrop');
+    const icon = document.getElementById('chat-expand-icon');
+    const label = document.getElementById('chat-expand-label');
+    const btn = document.getElementById('chat-expand-btn');
+    if (!chatCard) return;
+
+    const currentlyExpanded = chatCard.classList.contains('is-expanded');
+    const shouldExpand = typeof forceState === 'boolean' ? forceState : !currentlyExpanded;
+
+    if (shouldExpand) {
+      chatCard.classList.add('is-expanded');
+      if (backdrop) backdrop.classList.add('is-visible');
+      document.body.classList.add('chat-expanded-lock');
+      if (icon) icon.textContent = 'close_fullscreen';
+      if (label) label.textContent = 'ย่อ';
+      if (btn) {
+        btn.setAttribute('title', 'ย่อหน้าต่างแชต (กด Esc)');
+        btn.setAttribute('aria-label', 'ย่อหน้าต่างแชต');
+      }
+      setTimeout(function () {
+        scrollToBottom();
+        const input = document.getElementById('chat-native-input');
+        if (input) input.focus();
+      }, 150);
+    } else {
+      chatCard.classList.remove('is-expanded');
+      if (backdrop) backdrop.classList.remove('is-visible');
+      document.body.classList.remove('chat-expanded-lock');
+      if (icon) icon.textContent = 'open_in_full';
+      if (label) label.textContent = 'ขยาย';
+      if (btn) {
+        btn.setAttribute('title', 'ขยายหน้าต่างแชต');
+        btn.setAttribute('aria-label', 'ขยายหน้าต่างแชต');
+      }
+    }
+  };
+
+  // กดปุ่ม Esc เพื่อออกจากโหมดขยายแชต
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      const chatCard = document.getElementById('live-chat-card');
+      if (chatCard && chatCard.classList.contains('is-expanded')) {
+        window.toggleChatExpand(false);
+      }
+    }
+  });
+
   window.clearChatHistory = function () {
+    conversationHistory = [];
+    localStorage.removeItem(STORAGE_SESSION_KEY);
     const feed = document.getElementById('chat-messages-feed');
     if (!feed) return;
     feed.innerHTML =
@@ -476,11 +574,11 @@ function showToast(message) {
             '<span class="chat-time">ตอนนี้</span>' +
           '</div>' +
           '<div class="chat-bubble-bot">' +
-            'สวัสดีครับ! เริ่มการสนทนาใหม่แล้ว มีอะไรให้ช่วย หรืออยากคุยเล่น ถามมาได้เลยครับ!' +
+            'สวัสดีครับ! ล้างความจำและเริ่มการสนทนาใหม่แล้ว มีอะไรให้ช่วย หรืออยากคุยเล่น ถามมาได้เลยครับ!' +
           '</div>' +
         '</div>' +
       '</div>';
-    showToast('ล้างประวัติการสนทนาแล้ว');
+    showToast('ล้างประวัติและความจำบอทแล้ว');
   };
 
   // Backward-compatibility alias

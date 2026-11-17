@@ -19,9 +19,40 @@ export default async function handler(req, res) {
         body = {};
       }
     }
-    const { message } = body || {};
+    const { message, history } = body || {};
     if (!message || typeof message !== 'string' || message.trim() === '') {
       return res.status(400).json({ error: 'Message is required' });
+    }
+
+    const cleanMessage = message.trim().slice(0, 800);
+
+    // ประกอบประวัติการสนทนา (Memory) เพื่อให้บอทจำบริบทต่อเนื่องได้ (จำสูงสุด 16 ข้อความล่าสุด / 8 รอบ)
+    const contents = [];
+    if (Array.isArray(history)) {
+      const recentHistory = history.slice(-16);
+      for (const item of recentHistory) {
+        if (!item || typeof item.text !== 'string') continue;
+        const role = item.role === 'model' ? 'model' : 'user';
+        const text = item.text.trim().slice(0, 800);
+        if (!text) continue;
+
+        // Gemini ต้องเริ่มด้วย role 'user' เสมอ
+        if (contents.length === 0 && role !== 'user') continue;
+
+        // ถ้า role ซ้ำติดกัน ให้รวมเข้าด้วยกันเพื่อไม่ให้ผิดกฎ Gemini API
+        if (contents.length > 0 && contents[contents.length - 1].role === role) {
+          contents[contents.length - 1].parts[0].text += '\n' + text;
+        } else {
+          contents.push({ role, parts: [{ text }] });
+        }
+      }
+    }
+
+    // เพิ่มข้อความล่าสุดของผู้ใช้ลงท้าย
+    if (contents.length > 0 && contents[contents.length - 1].role === 'user') {
+      contents[contents.length - 1].parts[0].text += '\n' + cleanMessage;
+    } else {
+      contents.push({ role: 'user', parts: [{ text: cleanMessage }] });
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
@@ -67,15 +98,10 @@ export default async function handler(req, res) {
         systemInstruction: {
           parts: [{ text: systemPrompt }]
         },
-        contents: [
-          {
-            role: 'user',
-            parts: [{ text: message }]
-          }
-        ],
+        contents: contents,
         generationConfig: {
           temperature: 0.8,
-          maxOutputTokens: 200,
+          maxOutputTokens: 350,
           topP: 0.95
         }
       })
@@ -105,7 +131,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       available: true,
-      source: 'gemini-1.5-flash',
+      source: 'gemini-flash-lite-latest',
       reply: replyText
     });
 

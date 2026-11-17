@@ -952,6 +952,75 @@ main {
   overflow: hidden;
   box-shadow: var(--shadow-panel);
   padding: 0 !important;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* Backdrop เลเยอร์มืดด้านหลังตอนขยายแชต */
+.chat-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9990;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.chat-backdrop.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* โหมดขยายหน้าต่างแชตแบบ Overlay ซ้อนทับ (Desktop Modal) */
+.chat-card-container.is-expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 860px);
+  height: min(88vh, 760px);
+  max-width: none;
+  z-index: 9995;
+  border-color: rgba(88, 101, 242, 0.45);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+  animation: chatExpandIn 0.22s ease-out both;
+}
+
+@keyframes chatExpandIn {
+  from {
+    opacity: 0.7;
+    transform: translate(-50%, -48%) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ล็อกการเลื่อนหน้าเว็บด้านหลังเมื่อขยายแชต */
+body.chat-expanded-lock {
+  overflow: hidden !important;
+}
+
+/* โหมดเต็มจอ 100% สำหรับมือถือ (True Mobile Fullscreen) */
+@media (max-width: 640px) {
+  .chat-card-container.is-expanded {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    border-radius: 0;
+    border: none;
+    animation: fadeInPage 0.18s ease-out both;
+  }
+  .chat-card-container.is-expanded .chat-native-input-bar {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
 }
 
 .chat-header-bar {
