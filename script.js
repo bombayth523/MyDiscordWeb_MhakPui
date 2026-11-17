@@ -295,7 +295,7 @@ function showToast(message) {
       if (localKey) {
         try {
           const directRes = await fetch(
-            'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + localKey,
+            'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=' + localKey,
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },

@@ -55,8 +55,8 @@ export default async function handler(req, res) {
 - ถ้าเป็นคำถามที่เกี่ยวกับกลุ่มหมักปุ๋ย ให้อิงจากข้อมูลข้างต้น
 - ถ้าถามเรื่องที่ไม่รู้จริงๆ ให้ตอบตามสไตล์บอมบี้ว่ายังเอ๋ออยู่ หรือแซวแอดมิน Barombombie`;
 
-    // เรียก Google Gemini 1.5 Flash Endpoint (รองรับ System Instruction และ Free Tier)
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // เรียก Google Gemini Flash Latest Endpoint (รองรับ System Instruction และ Free Tier)
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`;
 
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
