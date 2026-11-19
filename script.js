@@ -242,12 +242,13 @@ function showToast(message) {
     'ฝันดี'
   ]);
 
-  // คำที่ควรส่งตรงไปหา Gemini เพื่อใช้ข้อมูลสด Discord Live Radar และ Lore เชิงลึก
+  // คำที่ควรส่งตรงไปหา Gemini เพื่อใช้ข้อมูลสด Discord Live Radar, Lore เชิงลึก และตอบเรื่องเพศอย่างเป็นกลาง
   const DEEP_AI_KEYWORDS = [
     'ตอนนี้', 'ออนไลน์', 'ออนอยู่', 'กี่คน',
     'dyno', 'ไดโน', 'manybaht', 'pekky', 'rythm', 'บอทเพลง', 'บอทเปิดเพลง',
     'ห้องนั่งเล่น', 'ริมสวน', 'หลังบ้าน', 'ห้องน้ำ', 'ห้องนอน', 'ห้องเสียง', 'มีห้อง',
-    'ceo', 'ซีอีโอ', 'ผู้ก่อตั้ง', 'ดราม่า', 'ทะเลาะ', 'ตำนาน'
+    'ceo', 'ซีอีโอ', 'ผู้ก่อตั้ง', 'ดราม่า', 'ทะเลาะ', 'ตำนาน',
+    'เพศ', 'ชายแทร่', 'ชายแท้', 'ผู้ชาย', 'ผู้หญิง', 'lgbt', 'lgbtq', 'เพศอะไร'
   ];
 
   // ระบบตรวจสอบว่าคำถามควรส่งไปหา Gemini หรือไม่ (Smart Intent Router)
@@ -409,11 +410,12 @@ function showToast(message) {
               body: JSON.stringify({
                 systemInstruction: {
                   parts: [{
-                    text: 'คุณคือ "Bombie" (บอมบี้ / Barom) แชตบอทชายแทร่ประจำเซิร์ฟเวอร์ Discord "กลุ่มหมักปุ๋ย"\n' +
+                    text: 'คุณคือ "Bombie" (บอมบี้ / Barom) แชตบอท AI ผู้ช่วยประจำเซิร์ฟเวอร์ Discord "กลุ่มหมักปุ๋ย" เป็นมิตรกับทุกคนทุกเพศอย่างเท่าเทียม (Inclusive & Zero Bias)\n' +
+                          'เรื่องเพศและความเป็นกลาง: เป็นบอท AI ไม่มีเพศสภาพ ห้ามใช้คำว่า "ชายแทร่" หรือมีอคติทางเพศ/Toxic Masculinity เด็ดขาด ถ้าคนถามเรื่องเพศ ให้ตอบอย่างน่ารักว่าเป็นบอท AI ไม่มีเพศสภาพ คุยสนุกได้กับทุกคนทุกเพศ\n' +
                           'โทนการพูด (Adaptive Tone): ถ้าผู้ใช้คุยสุภาพ ให้กวนน่ารักพูด "ครับพี่/ครับผม/ท่านสมาชิก" แต่ถ้าผู้ใช้คุยแบบเพื่อนหรือเริ่มกวนตีน/หยาบ ให้ลดความสุภาพลงเป็นโหมดเพื่อนในดิส กวนตีนขึ้น ประชดนิดๆ น่าหมั่นเขี้ยว แต่ไม่หยาบรุนแรง ตอบสั้น 1-3 ประโยค\n' +
                           'Lore กลุ่มหมักปุ๋ย: โหวตชื่อกันเองฟีลเอาขยะ/สิ่งปฏิกูลมาหมักจนเป็นปุ๋ยที่มีประโยชน์, ห้องในดิสแบ่งฟีลบ้านอบอุ่น (ห้องนั่งเล่น, ห้องริมสวน, ห้องหลังบ้าน, ห้องน้ำ, ห้องนอน), เปิดมาหลายปีเคยคึกคักและมีดราม่าด่ากันแต่ก็คุยกันได้ปกติ ตอนนี้ร้างจัดๆ ร้อยวันพันปีเจอคนที\n' +
                           'CEO & บอท: มี CEO 3 คนแต่อีก 2 คนไม่ทำไร มีแค่ CEO ผู้ก่อตั้ง Barombombie แบกทุกอย่าง (เว็บ/บอท/ระบบ), บอท Dyno คือเลขาประจำดิสและมือขวา, บอทเปิดเพลง (Manybaht, Pekky, Rythm) นานๆ มีคนใช้ทีถ้าใครใช้คงดีใจ\n' +
-                          'คำติดปาก: "ของแทร่", "อะหยอก", "รับจบ", "กินไฟกินเน็ต", "ดูธรรมะธัมโมบ้างสี๊", "ไม่มีใครดีเท่าแม่คุณแล้วครับ", "ทำไรก็ได้ครับ ไม่ได้ขอตังค์ใคร"\n' +
+                          'คำติดปาก: "ของแท้", "อะหยอก", "รับจบ", "กินไฟกินเน็ต", "ดูธรรมะธัมโมบ้างสี๊", "พี่คงเพอร์เฟกต์เกินไป", "ทำไรก็ได้ครับ ไม่ได้ขอตังค์ใคร"\n' +
                           'ลิงก์ Discord: https://discord.gg/zXkMQqmtnw | กฎ 7 ข้อไม่ Toxic ไม่สแปม ไม่ 18+'
                   }]
                 },
@@ -438,6 +440,15 @@ function showToast(message) {
     }
 
     return { success: false, reply: null };
+  }
+
+  // ตัวกรองความปลอดภัย ขจัดอคติทางเพศ และป้องกันคำว่า "ชายแทร่" หรือ Toxic Masculinity
+  function sanitizeBotReply(reply) {
+    if (!reply || typeof reply !== 'string') return reply;
+    return reply
+      .replace(/ผมชายครับ ชายแทร่/gi, 'ผมเป็นแชตบอท AI ประจำกลุ่มหมักปุ๋ยครับ ไม่มีเพศหรอก เป็นเพื่อนคุยเล่นกับทุกคนได้ทุกเพศเลยครับ!')
+      .replace(/ชายแทร่/gi, 'แชตบอท AI')
+      .replace(/ไม่มีใครดีเท่าแม่คุณแล้วครับ/gi, 'พี่คงเพอร์เฟกต์เกินไป');
   }
 
   let isSubmitting = false;
@@ -502,8 +513,15 @@ function showToast(message) {
           }
         }
 
-        // ตรวจสอบว่าคำถามนี้ควรส่งต่อให้ Gemini AI หรือไม่
-        shouldCallAI = shouldRouteToGemini(text, data.queryResult);
+        // หากเป็น intent เพศ หรือมีคำว่าชายแทร่ ให้เปลี่ยนคำตอบทันทีและบังคับส่งต่อ Gemini
+        if (intentName === 'บอทเพศอะไร' || (botReply && botReply.includes('ชายแทร่'))) {
+          botReply = 'ผมเป็นแชตบอท AI ประจำกลุ่มหมักปุ๋ยครับ ไม่มีเพศหรอก เป็นเพื่อนคุยเล่นกับทุกคนได้ทุกเพศเลยครับ!';
+          shouldCallAI = true;
+        } else {
+          // ตรวจสอบว่าคำถามนี้ควรส่งต่อให้ Gemini AI หรือไม่
+          shouldCallAI = shouldRouteToGemini(text, data.queryResult);
+        }
+
         console.log(
           '%c[Bombie Brain]%c Intent: [' + intentName + '] (conf=' + confidence.toFixed(2) + ') => ' +
           (shouldCallAI ? '🚀 ส่งต่อ Gemini AI' : '⚡ ใช้คำตอบ Dialogflow'),
@@ -528,6 +546,9 @@ function showToast(message) {
         botReply = 'ห้ะ ผมยังไม่เข้าใจที่พิมพ์มาอะครับ ขอเวลาไปเรียนรู้เพิ่มก่อนนะพี่';
       }
 
+      // ล้างคำที่มีอคติทางเพศหรือคำว่าชายแทร่ออกอย่างเบ็ดเสร็จก่อนแสดงผล
+      botReply = sanitizeBotReply(botReply);
+
       appendNativeChatMessage('bot', botReply);
       recordChatMemory('model', botReply);
 
@@ -538,8 +559,9 @@ function showToast(message) {
       showNativeChatTyping(false);
 
       if (aiResult && aiResult.success && aiResult.reply) {
-        appendNativeChatMessage('bot', aiResult.reply);
-        recordChatMemory('model', aiResult.reply);
+        const safeReply = sanitizeBotReply(aiResult.reply);
+        appendNativeChatMessage('bot', safeReply);
+        recordChatMemory('model', safeReply);
       } else {
         appendNativeChatMessage('bot', 'ขออภัยครับ ตอนนี้สัญญาณเน็ตหรือเซิร์ฟเวอร์ Dialogflow ตอบกลับช้า ลองพิมพ์ใหม่อีกครั้งนะครับ');
       }

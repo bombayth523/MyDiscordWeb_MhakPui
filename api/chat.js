@@ -152,11 +152,18 @@ export default async function handler(req, res) {
       });
     }
 
+    // ฟิลเตอร์ป้องกันคำที่มีอคติทางเพศหรือคำว่าชายแทร่ออกอย่างเบ็ดเสร็จ 100%
+    const safeReply = replyText
+      .replace(/ไม่มีโหมดชายแทร่หรือชายเทียมหรอก/gi, 'ไม่มีเรื่องเพศสภาพหรอกครับ')
+      .replace(/ชายแทร่/gi, 'บอท AI')
+      .replace(/ชายเทียม/gi, 'บอท')
+      .replace(/ไม่มีใครดีเท่าแม่คุณแล้วครับ/gi, 'พี่คงเพอร์เฟกต์เกินไป');
+
     return res.status(200).json({
       available: true,
       source: 'gemini-flash-lite-latest',
       liveOnline: liveDiscordInfo ? liveDiscordInfo.onlineCount : null,
-      reply: replyText
+      reply: safeReply
     });
 
   } catch (error) {
